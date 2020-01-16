@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 19:27:54 by tamarant          #+#    #+#             */
-/*   Updated: 2019/12/26 18:17:49 by tamarant         ###   ########.fr       */
+/*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
+/*   Updated: 2020/01/16 17:10:39 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-int		ft_isalnum(int c)
-{
-	if (ft_isalpha(c) || ft_isdigit(c))
-		return (1);
-	else
-		return (0);
-}
+# include "../ft_printf/libft/libft.h"
+	typedef struct		s_number
+	{
+		int 			number;
+		int				index;
+		int 			group;
+		struct s_number	*next;
+		struct s_number	*prev;
+
+	}					t_num;
+
+#endif
