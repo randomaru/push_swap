@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/16 17:44:04 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/01/16 17:59:42 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int		main(int argc, char **argv)
 		ft_printf("ERROR: number of arguments should be more than zero");
 		return (0);
 	}
-	if (argc == 2)
-		return (0);
-	if (argc > 2)
+/*	if (argc == 2)
+		return (0);*/
+	if (argc > 1)
 	{
 		while (argc > 1)
 		{
