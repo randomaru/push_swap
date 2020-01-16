@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/16 17:59:42 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:50:04 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,53 @@ t_num		*new_t_num(void)
 	if (!(new = (t_num*)malloc(sizeof(t_num))))
 		return (NULL);
 	new->number = 0;
-	new->index = 0;
+	new->index = -1;
 	new->group = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
+}
+
+void	set_index(t_num **head)
+{
+	int		index;
+	int		min;
+	int 	num_amount;
+	t_num	*tmp;
+	t_num	*num_min;
+
+	num_amount = 0;
+	index = 0;
+	tmp = *head;
+	num_min = NULL;
+	while (tmp)
+	{
+		num_amount++;
+		tmp = tmp->next;
+	}
+	while (index != num_amount)
+	{
+		tmp = *head;
+		if (tmp->index == -1)
+			min = tmp->number;
+		else
+		{
+			while (tmp->index != -1)
+				tmp = tmp->next;
+			min = tmp->number;
+		}
+		while (tmp)
+		{
+			if (tmp->index == -1 && tmp->number <= min)
+			{
+				min = tmp->number;
+				num_min = tmp;
+			}
+			tmp = tmp->next;
+		}
+		num_min->index = index;
+		index++;
+	}
 }
 
 int 	save_numbers(char *argv, t_num **new, t_num **head)
@@ -34,7 +76,7 @@ int 	save_numbers(char *argv, t_num **new, t_num **head)
 	while (*argv != '\0')
 	{
 		if (*argv == ' ')
-			*argv += 1;
+			argv += 1;
 		else if (*argv >= '0' && *argv <= '9')
 		{
 			if (new)
@@ -95,9 +137,10 @@ int		main(int argc, char **argv)
 			argc--;
 		}
 	}
+	set_index(&head);
 	while (head != NULL)
 	{
-		ft_printf("%i\n", head->number);
+		ft_printf("%2i %2i\n", head->number, head->index);
 		head = head->next;
 	}
 	return (0);
