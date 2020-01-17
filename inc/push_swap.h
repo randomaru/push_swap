@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/16 17:10:39 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/01/17 23:37:20 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,11 @@
 		struct s_number	*prev;
 
 	}					t_num;
+
+void 					final_free(t_num **head);
+t_num					*new_t_num(void);
+void					set_index(t_num **head);
+int 					save_numbers(char *argv, t_num **new, t_num **head, t_num **tail);
+
 
 #endif

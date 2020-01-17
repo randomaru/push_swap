@@ -7,6 +7,8 @@ include_directories(libft)
 
 add_executable(push_swap
         inc/push_swap.h
+        src/save_data.c
+        src/checker.c
         src/main.c
 
         )
