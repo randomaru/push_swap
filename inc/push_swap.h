@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "../ft_printf/libft/libft.h"
+# include "../ft_printf/inc/ft_printf.h"
 	typedef struct		s_number
 	{
 		int 			number;
