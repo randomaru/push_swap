@@ -6,12 +6,42 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/20 21:50:00 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/20 22:05:38 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 #include <stdio.h>
+
+void	print_stacks(t_num *head_a, t_num *head_b)
+{
+	t_num *tmp_a;
+	t_num *tmp_b;
+
+	tmp_a = head_a;
+	tmp_b = head_b;
+	while (tmp_a || tmp_b)
+	{
+		if (tmp_b == NULL && tmp_a)
+		{
+			ft_printf("%7i | %7c\n", tmp_a->number, ' ');
+			tmp_a = tmp_a->next;
+		}
+		else if (tmp_a == NULL && tmp_b)
+		{
+			ft_printf("%7c | %7i\n", ' ', tmp_b->number);
+			tmp_b = tmp_b->next;
+		}
+		else if (tmp_a && tmp_b)
+		{
+			ft_printf("%7i | %7i\n", tmp_a->number, tmp_b->number);
+			tmp_a = tmp_a->next;
+			tmp_b = tmp_b->next;
+		}
+
+	}
+	ft_printf("\n%7s | %7s\n", "stack A", "stack B");
+}
 
 int		main(int argc, char **argv)
 {
@@ -64,33 +94,16 @@ int		main(int argc, char **argv)
 		ft_printf("%2i %2i\n", tail->number, tail->index);
 		tail = tail->prev;
 	}*/
-//	rr_reverse(&head, &tail);
+	print_stacks(head, head_b);
+
+	rr_reverse(&head, &tail);
+	print_stacks(head, head_b);
+
 	push('b', &head, &head_b);
 	push('b', &head, &head_b);
 
-	t_num *tmp_head_a = head;
-	t_num *tmp_head_b = head_b;
-	while (tmp_head_a || tmp_head_b)
-	{
-		if (tmp_head_b == NULL && tmp_head_a)
-		{
-			ft_printf("%7i | %7c\n", tmp_head_a->number, ' ');
-			tmp_head_a = tmp_head_a->next;
-		}
-		else if (tmp_head_a == NULL && tmp_head_b)
-		{
-			ft_printf("%7c | %7i\n", ' ', tmp_head_b->number);
-			tmp_head_b = tmp_head_b->next;
-		}
-		else if (tmp_head_a && tmp_head_b)
-		{
-			ft_printf("%7i | %7i\n", tmp_head_a->number, tmp_head_b->number);
-			tmp_head_a = tmp_head_a->next;
-			tmp_head_b = tmp_head_b->next;
-		}
-
-	}
-	ft_printf("\n%7s | %7s\n", "stack A", "stack B");
+	print_stacks(head, head_b);
 	final_free(&head);
+	final_free(&head_b);
 	return (0);
 }
