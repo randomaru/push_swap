@@ -82,7 +82,7 @@ int 	save_numbers(char *argv, t_num **new, t_num **head, t_num **tail)
 		else
 			return (-1);
 	}
-	set_prev(&*head);
+	set_prev(head);
 	return (0);
 }
 

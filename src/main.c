@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/17 23:49:08 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/20 19:20:05 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ int		main(int argc, char **argv)
 		head_tmp = head_tmp->next;
 	}
 	ft_printf("\n");
-	while (tail)
+/*	while (tail)
 	{
 		ft_printf("%2i %2i\n", tail->number, tail->index);
 		tail = tail->prev;
-	}
+	}*/
+	r_reverse(&head, &tail);
 	final_free(&head);
 	return (0);
 }
