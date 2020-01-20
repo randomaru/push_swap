@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/20 19:59:33 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/20 22:22:28 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int 					save_numbers(char *argv, t_num **new, t_num **head, t_num **tail);
 void					s_swap(t_num **head);
 void					r_reverse(t_num **head, t_num **tail);
 void					rr_reverse(t_num **head, t_num **tail);
-void					push(char c, t_num **head_a, t_num **head_b);
+int push(char c, t_num **head_a, t_num **head_b);
 
 #endif

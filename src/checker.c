@@ -57,42 +57,44 @@ void	rr_reverse(t_num **head, t_num **tail)
 	}*/
 }
 
-void	push(char c, t_num **head_a, t_num **head_b)
+int push(char c, t_num **head_a, t_num **head_b)
 {
+	t_num **from;
+	t_num **to;
 	t_num *tmp;
 	t_num *tmp_next;
+
 	if (c == 'a')
 	{
-		tmp = *head_b;
-		*head_b = (*head_b)->next;
-		(*head_a)->prev = tmp;
-		tmp->next = *head_a;
-		*head_a = tmp;
-//		*head_b = NULL;
+		from = head_b;
+		to = head_a;
 	}
-	if (c == 'b')
+	else
 	{
-		tmp = *head_a;
-		tmp_next = (*head_a)->next;
-		if (*head_b == NULL)
-		{
-			*head_b = *head_a;
-			tmp_next->prev = NULL;
-			(*head_b)->prev = NULL;
-			(*head_b)->next = NULL;
-			*head_a = tmp_next;
-		}
-		else
-		{
-			tmp_next->prev = NULL;
-			tmp->prev = NULL;
-			tmp->next = *head_b;
-			(*head_b)->prev = tmp;
-			(*head_b) = tmp;
-			*head_a = tmp_next;
-		}
-
-
+		from = head_a;
+		to = head_b;
 	}
-
+	if (*from == NULL)
+		return (-1);
+	tmp = *from;
+	tmp_next = (*from)->next;
+	if (*to == NULL)
+	{
+		*to = *from;
+		tmp_next->prev = NULL;
+		(*to)->prev = NULL;
+		(*to)->next = NULL;
+		*from = tmp_next;
+	}
+	else
+	{
+		if (tmp_next)
+			tmp_next->prev = NULL;
+		tmp->prev = NULL;
+		tmp->next = *to;
+		(*to)->prev = tmp;
+		*to = tmp;
+		*from = tmp_next;
+	}
+	return (0);
 }

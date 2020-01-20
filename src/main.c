@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/20 22:05:38 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/20 22:34:17 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 
 	tmp_a = head_a;
 	tmp_b = head_b;
+	ft_printf("\n");
 	while (tmp_a || tmp_b)
 	{
 		if (tmp_b == NULL && tmp_a)
@@ -40,7 +41,7 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 		}
 
 	}
-	ft_printf("\n%7s | %7s\n", "stack A", "stack B");
+	ft_printf("%7s | %7s\n", "stack A", "stack B");
 }
 
 int		main(int argc, char **argv)
@@ -94,14 +95,13 @@ int		main(int argc, char **argv)
 		ft_printf("%2i %2i\n", tail->number, tail->index);
 		tail = tail->prev;
 	}*/
+
+//	push('b', &head, &head_b);
 	print_stacks(head, head_b);
-
-	rr_reverse(&head, &tail);
+	push('b', &head, &head_b);
 	print_stacks(head, head_b);
-
-	push('b', &head, &head_b);
-	push('b', &head, &head_b);
-
+	if (push('a', &head, &head_b) == -1)
+		return (-1);
 	print_stacks(head, head_b);
 	final_free(&head);
 	final_free(&head_b);
