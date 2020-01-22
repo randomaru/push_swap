@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/20 22:34:17 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/22 21:25:47 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,27 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 	ft_printf("%7s | %7s\n", "stack A", "stack B");
 }
 
+/*int		save_args(int argc, char **argv)
+{
+	while (argc > 1)
+	{
+		if (save_numbers(argv[i], &new, &head, &tail) == -1)
+		{
+			ft_printf("ERROR");
+			if (head)
+				final_free(&head);
+			if (new)
+				final_free(&new); ////Немного КОСТЫЛЬ
+			return (0);
+		}
+		i++;
+		argc--;
+	}
+}*/
+
 int		main(int argc, char **argv)
 {
+	t_args	*storage;
 	t_num	*head;
 	t_num	*head_b;
 	t_num	*tail;
@@ -58,6 +77,9 @@ int		main(int argc, char **argv)
 	head_b = NULL;
 	tail = NULL;
 	i = 1;
+
+	if (!(storage = new_t_args()))
+		return (-1);
 	if (!(new = new_t_num()))
 		return (-1);
 	if (argc < 2)
@@ -105,5 +127,6 @@ int		main(int argc, char **argv)
 	print_stacks(head, head_b);
 	final_free(&head);
 	final_free(&head_b);
+
 	return (0);
 }

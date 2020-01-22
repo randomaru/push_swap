@@ -1,6 +1,14 @@
-//
-// Created by mac on 17.01.2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save_data.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/22 21:14:53 by tamarant          #+#    #+#             */
+/*   Updated: 2020/01/22 21:14:53 by tamarant         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
@@ -26,6 +34,21 @@ t_num		*new_t_num(void)
 	new->group = 0;
 	new->next = NULL;
 	new->prev = NULL;
+	return (new);
+}
+
+t_args 		*new_t_args(void)
+{
+	t_args *new;
+
+	if (!(new = (t_args*)malloc(sizeof(t_args))))
+		return (NULL);
+	new->head_a = NULL;
+	new->head_b = NULL;
+	new->tail_a = NULL;
+	new->tail_b = NULL;
+	new->stack_a_num = 0;
+	new->stack_b_num = 0;
 	return (new);
 }
 
