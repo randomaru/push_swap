@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/22 21:25:47 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/01/27 21:35:10 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 	}
 }*/
 
+/*
 int		main(int argc, char **argv)
 {
 	t_args	*storage;
@@ -112,13 +113,14 @@ int		main(int argc, char **argv)
 		head_tmp = head_tmp->next;
 	}
 	ft_printf("\n");
+*/
 /*	while (tail)
 	{
 		ft_printf("%2i %2i\n", tail->number, tail->index);
 		tail = tail->prev;
-	}*/
+	}*//*
 
-//	push('b', &head, &head_b);
+
 	print_stacks(head, head_b);
 	push('b', &head, &head_b);
 	print_stacks(head, head_b);
@@ -130,3 +132,4 @@ int		main(int argc, char **argv)
 
 	return (0);
 }
+*/

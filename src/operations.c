@@ -6,13 +6,13 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/22 21:14:44 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/01/28 00:47:17 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void s_swap(t_num **head)
+int s_swap(t_num **head)
 {
 	t_num	*tmp;
 
@@ -28,9 +28,10 @@ void s_swap(t_num **head)
 		ft_printf("%2i %2i\n", tmp->number, tmp->index);
 		tmp = tmp->next;
 	}*/
+	return (1);
 }
 
-void	r_reverse(t_num **head, t_num **tail)
+int r_rotate(t_num **head, t_num **tail)
 {
 	t_num *tmp;
 
@@ -42,6 +43,8 @@ void	r_reverse(t_num **head, t_num **tail)
 	tmp->next = NULL;
 	*tail = tmp;
 
+	return (1);
+
 /*	tmp = *head;
 	while (tmp != NULL)
 	{
@@ -50,7 +53,7 @@ void	r_reverse(t_num **head, t_num **tail)
 	}*/
 }
 
-void	rr_reverse(t_num **head, t_num **tail)
+int rr_reverse(t_num **head, t_num **tail)
 {
 	t_num *tmp;
 
@@ -67,6 +70,7 @@ void	rr_reverse(t_num **head, t_num **tail)
 		ft_printf("%2i %2i\n", tmp->number, tmp->index);
 		tmp = tmp->next;
 	}*/
+	return (1);
 }
 
 int push(char c, t_num **head_a, t_num **head_b)
@@ -108,5 +112,5 @@ int push(char c, t_num **head_a, t_num **head_b)
 		*to = tmp;
 		*from = tmp_next;
 	}
-	return (0);
+	return (1);
 }

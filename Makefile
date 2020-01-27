@@ -6,13 +6,16 @@
 #    By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/16 16:56:38 by tamarant          #+#    #+#              #
-#    Updated: 2020/01/22 16:08:23 by tamarant         ###   ########.fr        #
+#    Updated: 2020/01/27 23:08:10 by mac              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ./test
 
-FILES = main.c \
+FILES = checker.c \
+        operations.c \
+        save_data.c \
+        not_mine_get_next_line.c \
 
 SRC = $(addprefix src/,$(FILES))
 
@@ -22,7 +25,7 @@ LIB = ft_printf/libft/libft.a
 
 LIB2 = ft_printf/libftprintf.a
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS =
 
 all : $(NAME)
 
