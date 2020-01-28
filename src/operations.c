@@ -6,11 +6,30 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/28 00:47:17 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/28 22:18:38 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+int		is_sorted(t_num *head)
+{
+	t_num	*tmp;
+	int 	prev_index;
+
+	if (head == NULL)
+		return (-1);
+	tmp = head->next;
+	prev_index = head->index;
+	while (tmp)
+	{
+		if (prev_index > tmp->index)
+			return (-1);
+		prev_index = tmp->index;
+		tmp = tmp->next;
+	}
+	return (1);
+}
 
 int s_swap(t_num **head)
 {
@@ -73,7 +92,8 @@ int rr_reverse(t_num **head, t_num **tail)
 	return (1);
 }
 
-int push(char c, t_num **head_a, t_num **head_b)
+//int push(char c, t_num **head_a, t_num **head_b)
+int push(char c, t_args **storage)
 {
 	t_num **from;
 	t_num **to;
@@ -82,13 +102,15 @@ int push(char c, t_num **head_a, t_num **head_b)
 
 	if (c == 'a')
 	{
-		from = head_b;
-		to = head_a;
+		from = &(*storage)->head_b;
+		to = &(*storage)->head_a;
 	}
 	else
 	{
-		from = head_a;
-		to = head_b;
+		from = &(*storage)->head_a;
+		to = &(*storage)->head_b;
+		if ((*storage)->tail_b == NULL)
+			(*storage)->tail_b = (*storage)->head_a;
 	}
 	if (*from == NULL)
 		return (-1);

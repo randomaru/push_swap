@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:53 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/28 18:58:17 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/28 20:13:19 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_args 		*new_t_args(void)
 	new->tail_b = NULL;
 	new->stack_a_num = 0;
 	new->stack_b_num = 0;
+	new->min_index_stack_a = 0;
+	new->max_index_stack_a = 0;
 	return (new);
 }
 
@@ -150,22 +152,3 @@ void	set_index(t_num **head)
 	}
 }
 
-void	set_rank(t_args **storage)
-{
-	int step_width;
-	t_num *tmp;
-
-	step_width = (*storage)->stack_a_num / 3;
-	tmp = (*storage)->head_a;
-	while (tmp)
-	{
-		if (tmp->index >= 1 && tmp->index < 1 + step_width)
-			tmp->rank = 1;
-		else if (tmp->index >= 1 + step_width && tmp->index < 1 + step_width * 2)
-			tmp->rank = 2;
-		else
-			tmp->rank = 3;
-		tmp = tmp->next;
-	}
-
-}

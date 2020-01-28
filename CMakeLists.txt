@@ -114,4 +114,5 @@ add_executable(push_swap
         src/push_swap.c
         src/save_data.c
         src/not_mine_get_next_line.c
+        src/sort.c
         )

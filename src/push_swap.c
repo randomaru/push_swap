@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/28 18:54:20 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/28 22:13:53 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,27 @@ int		main(int argc, char **argv)
 	//storage->head_a = head;
 	set_index(&storage->head_a);
 	set_rank(&storage);
-	head_tmp = storage->head_a;
+/*	head_tmp = storage->head_a;
 	while (head_tmp != NULL)
 	{
 		ft_printf("%2i %2i %2i\n", head_tmp->number, head_tmp->index, head_tmp->rank);
 		head_tmp = head_tmp->next;
 	}
-/*	ft_printf("\n");
-	tail = storage->tail_a;
+	ft_printf("\n");*/ //проверка index && rank
+/*	tail = storage->tail_a;
 	while (tail)
 	{
 		ft_printf("%2i %2i\n", tail->number, tail->index);
 		tail = tail->prev;
-	}
+	}*/ //проверяем tail
 
-
+	sort_by_rank(&storage);
+//	set_sub_rank(&storage, 30, 7);
+	//sort_by_sub_rank(&storage);
+	//print_stacks(storage->head_a, storage->head_b);
+	sort_stack_a(&storage);
 	print_stacks(storage->head_a, storage->head_b);
-	push('b', &storage->head_a, &storage->head_b);
+/*	push('b', &storage->head_a, &storage->head_b);
 	print_stacks(storage->head_a, storage->head_b);
 	if (push('a', &storage->head_a, &storage->head_b) == -1)
 		return (-1);
