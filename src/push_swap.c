@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/27 21:35:10 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/28 18:54:20 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,6 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 	ft_printf("%7s | %7s\n", "stack A", "stack B");
 }
 
-/*int		save_args(int argc, char **argv)
-{
-	while (argc > 1)
-	{
-		if (save_numbers(argv[i], &new, &head, &tail) == -1)
-		{
-			ft_printf("ERROR");
-			if (head)
-				final_free(&head);
-			if (new)
-				final_free(&new); ////Немного КОСТЫЛЬ
-			return (0);
-		}
-		i++;
-		argc--;
-	}
-}*/
-
-/*
 int		main(int argc, char **argv)
 {
 	t_args	*storage;
@@ -92,11 +73,11 @@ int		main(int argc, char **argv)
 	{
 		while (argc > 1)
 		{
-			if (save_numbers(argv[i], &new, &head, &tail) == -1)
+			if (save_numbers(argv[i], &new, &storage) == -1)
 			{
 				ft_printf("ERROR");
-				if (head)
-					final_free(&head);
+				/*if (head)
+					final_free(&head);*/
 				if (new)
 					final_free(&new); ////Немного КОСТЫЛЬ
 				return (0);
@@ -105,31 +86,32 @@ int		main(int argc, char **argv)
 			argc--;
 		}
 	}
-	set_index(&head);
-	head_tmp = head;
+	//storage->head_a = head;
+	set_index(&storage->head_a);
+	set_rank(&storage);
+	head_tmp = storage->head_a;
 	while (head_tmp != NULL)
 	{
-		ft_printf("%2i %2i\n", head_tmp->number, head_tmp->index);
+		ft_printf("%2i %2i %2i\n", head_tmp->number, head_tmp->index, head_tmp->rank);
 		head_tmp = head_tmp->next;
 	}
-	ft_printf("\n");
-*/
-/*	while (tail)
+/*	ft_printf("\n");
+	tail = storage->tail_a;
+	while (tail)
 	{
 		ft_printf("%2i %2i\n", tail->number, tail->index);
 		tail = tail->prev;
-	}*//*
+	}
 
 
-	print_stacks(head, head_b);
-	push('b', &head, &head_b);
-	print_stacks(head, head_b);
-	if (push('a', &head, &head_b) == -1)
+	print_stacks(storage->head_a, storage->head_b);
+	push('b', &storage->head_a, &storage->head_b);
+	print_stacks(storage->head_a, storage->head_b);
+	if (push('a', &storage->head_a, &storage->head_b) == -1)
 		return (-1);
-	print_stacks(head, head_b);
-	final_free(&head);
-	final_free(&head_b);
+	print_stacks(storage->head_a, storage->head_b);
+	final_free(&storage->head_a);
+	final_free(&storage->head_b);*/
 
 	return (0);
 }
-*/

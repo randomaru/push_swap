@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:53 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/22 21:14:53 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:58:17 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_num		*new_t_num(void)
 		return (NULL);
 	new->number = 0;
 	new->index = -1;
-	new->group = 0;
+	new->rank = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
@@ -67,7 +67,7 @@ void	set_prev(t_num **head)
 	}
 }
 
-int 	save_numbers(char *argv, t_num **new, t_num **head, t_num **tail)
+int		save_numbers(char *argv, t_num **new, t_args **storage)
 {
 	if (argv == NULL || *new == NULL)
 		return (-1);
@@ -77,8 +77,8 @@ int 	save_numbers(char *argv, t_num **new, t_num **head, t_num **tail)
 			argv += 1;
 		else if (*argv >= '0' && *argv <= '9')
 		{
-			if (*head == NULL)
-				*head = *new;
+			if ((*storage)->head_a == NULL)
+				(*storage)->head_a = *new;
 			else
 			{
 				if (!((*new)->next = new_t_num()))
@@ -87,9 +87,8 @@ int 	save_numbers(char *argv, t_num **new, t_num **head, t_num **tail)
 			}
 			if (((*new)->number = ft_atoi(argv)) == -1)
 				return (-1);
-			if (*head == NULL)
-				*head = *new;
 			argv += number_len((*new)->number);
+			(*storage)->stack_a_num += 1;
 			while (*argv == ' ')
 			{
 				argv += 1;
@@ -98,14 +97,14 @@ int 	save_numbers(char *argv, t_num **new, t_num **head, t_num **tail)
 			}
 			if (*argv == '\0')
 			{
-				*tail = *new;
+				(*storage)->tail_a = *new;
 				break ;
 			}
 		}
 		else
 			return (-1);
 	}
-	set_prev(head);
+	set_prev( &(*storage)->head_a);
 	return (0);
 }
 
@@ -118,7 +117,7 @@ void	set_index(t_num **head)
 	t_num	*num_min;
 
 	num_amount = 0;
-	index = 0;
+	index = 1;
 	tmp = *head;
 	num_min = NULL;
 	while (tmp)
@@ -126,7 +125,7 @@ void	set_index(t_num **head)
 		num_amount++;
 		tmp = tmp->next;
 	}
-	while (index != num_amount)
+	while (index != num_amount + 1)
 	{
 		tmp = *head;
 		if (tmp->index == -1)
@@ -149,4 +148,24 @@ void	set_index(t_num **head)
 		num_min->index = index;
 		index++;
 	}
+}
+
+void	set_rank(t_args **storage)
+{
+	int step_width;
+	t_num *tmp;
+
+	step_width = (*storage)->stack_a_num / 3;
+	tmp = (*storage)->head_a;
+	while (tmp)
+	{
+		if (tmp->index >= 1 && tmp->index < 1 + step_width)
+			tmp->rank = 1;
+		else if (tmp->index >= 1 + step_width && tmp->index < 1 + step_width * 2)
+			tmp->rank = 2;
+		else
+			tmp->rank = 3;
+		tmp = tmp->next;
+	}
+
 }

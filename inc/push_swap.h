@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/28 00:47:17 by mac              ###   ########.fr       */
+/*   Updated: 2020/01/28 18:41:56 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	{
 		int 			number;
 		int				index;
-		int 			group;
+		int 			rank;
 		struct s_number	*next;
 		struct s_number	*prev;
 
@@ -42,10 +42,11 @@ void 					final_free(t_num **head);
 t_num					*new_t_num(void);
 t_args 					*new_t_args(void);
 void					set_index(t_num **head);
-int 					save_numbers(char *argv, t_num **new, t_num **head, t_num **tail);
-int s_swap(t_num **head);
-int r_rotate(t_num **head, t_num **tail);
-int rr_reverse(t_num **head, t_num **tail);
+int						save_numbers(char *argv, t_num **new, t_args **storage);
+int						s_swap(t_num **head);
+int						r_rotate(t_num **head, t_num **tail);
+int						rr_reverse(t_num **head, t_num **tail);
 int						push(char c, t_num **head_a, t_num **head_b);
+void	set_rank(t_args **storage);
 
 #endif
