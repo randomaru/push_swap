@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:33 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/28 01:53:26 by mac              ###   ########.fr       */
+/*   Updated: 2020/02/01 19:19:47 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int		is_sorted(t_args *storage)
 
 int		parse_args(t_args *storage, char *line)
 {
+	if (line == NULL)
+		return (0);
 	if (!(ft_strcmp("sa", line)))
 		return (s_swap(&storage->head_a));
 	else if (!(ft_strcmp("sb", line)))
@@ -82,9 +84,9 @@ int		parse_args(t_args *storage, char *line)
 			return (1);
 	}
 	else if (!(ft_strcmp("pa", line)))
-		return (push('a', &storage->head_a, &storage->head_b));
+		return (push('a', &storage));
 	else if (!(ft_strcmp("pb", line)))
-		return (push('b', &storage->head_a, &storage->head_b));
+		return (push('b', &storage));
 	else if (!(ft_strcmp("ra", line)))
 		return (r_rotate(&storage->head_a, &storage->tail_a));
 	else if (!(ft_strcmp("rb", line)))
@@ -114,7 +116,9 @@ int 	valid_and_parse_args(t_args *storage)
 	int res;
 	char *line;
 
-	while ((res = not_mine_get_next_line(0, &line)) != EOF)
+	int fd = open("/Users/tamarant/Desktop/projects/push_swap/src/test_checker", O_RDONLY);
+//	while ((res = not_mine_get_next_line(0, &line)) != EOF)
+	while ((res = not_mine_get_next_line(fd, &line)) != EOF)
 	{
 		if (parse_args(storage, line) == -1)
 		{
@@ -135,13 +139,8 @@ int 	main(int argc, char **argv)
 {
 	int i = 1;
 	t_args	*storage;
-	t_num	*head;
-	t_num	*head_b;
-	t_num	*tail;
-	t_num	*head_tmp;
 	t_num	*new;
 	char	*line = NULL;
-	int res;
 
 	if (!(new = new_t_num()))
 		return (-1);
@@ -156,25 +155,28 @@ int 	main(int argc, char **argv)
 	{
 		while (argc > 1)
 		{
-			if (save_numbers(argv[i], &new, &head, &tail) == -1)
+			if (save_numbers(argv[i], &new, &storage) == -1)
 			{
 				ft_printf("ERROR");
-				if (head)
-					final_free(&head);
-				if (new)
-					final_free(&new); ////Немного КОСТЫЛЬ
+				if (storage->head_a)
+					final_free(&storage->head_a); ////Немного КОСТЫЛЬ
 				return (0);
 			}
 			i++;
 			argc--;
 		}
-		set_index(&head);
-		head_tmp = head;
+		set_index(&storage->head_a);
 	}
-	storage->head_a = head;
+	print_stacks(storage->head_a, storage->head_b);
 	if (valid_and_parse_args(storage) == 1)
+	{
+		//print_stacks(storage->head_a, storage->head_b);
 		ft_printf("OK");
+	}
 	else
+	{
+		//print_stacks(storage->head_a, storage->head_b);
 		ft_printf("KO");
-	return (0);
+	}
+		return (0);
 }

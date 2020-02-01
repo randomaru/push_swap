@@ -6,13 +6,44 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/28 22:18:38 by mac              ###   ########.fr       */
+/*   Updated: 2020/02/01 18:33:28 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-int		is_sorted(t_num *head)
+void	print_stacks(t_num *head_a, t_num *head_b)
+{
+	t_num *tmp_a;
+	t_num *tmp_b;
+
+	tmp_a = head_a;
+	tmp_b = head_b;
+	ft_printf("\n");
+	while (tmp_a || tmp_b)
+	{
+		if (tmp_b == NULL && tmp_a)
+		{
+			ft_printf("%7i | %7c\n", tmp_a->number, ' ');
+			tmp_a = tmp_a->next;
+		}
+		else if (tmp_a == NULL && tmp_b)
+		{
+			ft_printf("%7c | %7i\n", ' ', tmp_b->number);
+			tmp_b = tmp_b->next;
+		}
+		else if (tmp_a && tmp_b)
+		{
+			ft_printf("%7i | %7i\n", tmp_a->number, tmp_b->number);
+			tmp_a = tmp_a->next;
+			tmp_b = tmp_b->next;
+		}
+
+	}
+	ft_printf("%7s | %7s\n", "stack A", "stack B");
+}
+
+/*int		is_sorted(t_num *head)
 {
 	t_num	*tmp;
 	int 	prev_index;
@@ -29,7 +60,7 @@ int		is_sorted(t_num *head)
 		tmp = tmp->next;
 	}
 	return (1);
-}
+}*/
 
 int s_swap(t_num **head)
 {
