@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/01 18:33:28 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/10 17:12:06 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void	**sort_stack_a(t_args **storage);
 void	**sort_stack_a(t_args **storage);
 
 
-//int		is_sorted(t_num *head);
-int		is_sorted(t_args *storage);
+int		is_sorted(t_num *head);
+//int		is_sorted(t_args *storage);
 void	print_stacks(t_num *head_a, t_num *head_b);
+
+
+int		sort_32(t_args **storage, int step_width);
 
 
 #endif

@@ -8,7 +8,9 @@ int		sort_by_sub_rank(t_args **storage)
 {
 	int count;
 
+	//// 1 12 2 4 16 5 11 6 7 14 8 9 10 13 15 17 18 3
 	count = (*storage)->stack_a_num;
+
 	while (count--)
 	{
 		if ((*storage)->head_a->rank == 33)
@@ -69,6 +71,7 @@ int		set_sub_rank(t_args **storage, int rank, int index_min)
 			tmp->rank = rank + 3;
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 void	set_rank(t_args **storage)
@@ -140,4 +143,41 @@ void	**sort_stack_a(t_args **storage)
 		}
 	}
 
+}
+
+int		sort_32(t_args **storage, int step_width)
+{
+	////набросок, учитывать tail
+	int tmp_index = 0;
+	int inc = 0;
+
+	if (!(is_sorted((*storage)->head_a)))
+		return (-1);
+	if (!(*storage)->head_b)
+		return (-1);
+	tmp_index = (*storage)->head_a->index;
+	while (step_width)
+	{
+		if ((*storage)->head_b->index < (*storage)->head_b->next->index)
+		{
+			s_swap(&(*storage)->head_b);
+			inc++;
+		}
+		else if ((*storage)->head_b->index == tmp_index - 1 || (*storage)->head_b->index == tmp_index - 2)
+		{
+			push('a', storage);
+			if ((*storage)->head_a->index > (*storage)->head_a->next->index)
+				s_swap(&(*storage)->head_a);
+			tmp_index = (*storage)->head_a->index;
+			step_width--;
+		}
+		else if ((*storage)->head_b->index > (*storage)->head_b->next->index)
+		{
+			r_rotate(&(*storage)->head_b, &(*storage)->tail_b);
+			inc++;
+		}
+		else while (inc-- > -1)
+			rr_reverse(&(*storage)->head_b, &(*storage)->tail_b);
+	}
+	return (1);
 }

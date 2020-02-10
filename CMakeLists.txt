@@ -109,9 +109,9 @@ add_executable(push_swap
         ft_printf/src/pf_lib.c
         ft_printf/src/print_check.c
         inc/push_swap.h
-        src/checker.c
+#        src/checker.c
         src/operations.c
-#        src/push_swap.c
+        src/push_swap.c
         src/save_data.c
         src/not_mine_get_next_line.c
         src/sort.c

@@ -6,14 +6,14 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/01/28 22:13:53 by mac              ###   ########.fr       */
+/*   Updated: 2020/02/10 19:33:52 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 #include <stdio.h>
 
-void	print_stacks(t_num *head_a, t_num *head_b)
+/*void	print_stacks(t_num *head_a, t_num *head_b)
 {
 	t_num *tmp_a;
 	t_num *tmp_b;
@@ -42,22 +42,15 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 
 	}
 	ft_printf("%7s | %7s\n", "stack A", "stack B");
-}
+}*/
 
 int		main(int argc, char **argv)
 {
 	t_args	*storage;
-	t_num	*head;
-	t_num	*head_b;
-	t_num	*tail;
-	t_num	*head_tmp;
 	t_num	*new;
 	int		i;
 
 	new = NULL;
-	head = NULL;
-	head_b = NULL;
-	tail = NULL;
 	i = 1;
 
 	if (!(storage = new_t_args()))
@@ -76,8 +69,6 @@ int		main(int argc, char **argv)
 			if (save_numbers(argv[i], &new, &storage) == -1)
 			{
 				ft_printf("ERROR");
-				/*if (head)
-					final_free(&head);*/
 				if (new)
 					final_free(&new); ////Немного КОСТЫЛЬ
 				return (0);
@@ -86,7 +77,6 @@ int		main(int argc, char **argv)
 			argc--;
 		}
 	}
-	//storage->head_a = head;
 	set_index(&storage->head_a);
 	set_rank(&storage);
 /*	head_tmp = storage->head_a;
@@ -104,18 +94,19 @@ int		main(int argc, char **argv)
 	}*/ //проверяем tail
 
 	sort_by_rank(&storage);
-//	set_sub_rank(&storage, 30, 7);
-	//sort_by_sub_rank(&storage);
-	//print_stacks(storage->head_a, storage->head_b);
-	sort_stack_a(&storage);
 	print_stacks(storage->head_a, storage->head_b);
-/*	push('b', &storage->head_a, &storage->head_b);
+
+	set_sub_rank(&storage, 30, 13); //// обрати внимание на второй аргумент
+	sort_by_sub_rank(&storage);
 	print_stacks(storage->head_a, storage->head_b);
-	if (push('a', &storage->head_a, &storage->head_b) == -1)
-		return (-1);
+
+//	sort_stack_a(&storage);
+//	print_stacks(storage->head_a, storage->head_b);
+
+	sort_32(&storage, 2);
 	print_stacks(storage->head_a, storage->head_b);
+
 	final_free(&storage->head_a);
-	final_free(&storage->head_b);*/
 
 	return (0);
 }

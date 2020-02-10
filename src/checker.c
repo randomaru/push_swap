@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:33 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/01 19:19:47 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/01 19:21:06 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,12 +170,12 @@ int 	main(int argc, char **argv)
 	print_stacks(storage->head_a, storage->head_b);
 	if (valid_and_parse_args(storage) == 1)
 	{
-		//print_stacks(storage->head_a, storage->head_b);
+		print_stacks(storage->head_a, storage->head_b);
 		ft_printf("OK");
 	}
 	else
 	{
-		//print_stacks(storage->head_a, storage->head_b);
+		print_stacks(storage->head_a, storage->head_b);
 		ft_printf("KO");
 	}
 		return (0);
