@@ -4,7 +4,7 @@
 
 #include <../inc/push_swap.h>
 
-int		sort_by_sub_rank(t_args **storage)
+/*int		sort_by_sub_rank(t_args **storage)
 {
 	int count;
 
@@ -28,7 +28,26 @@ int		sort_by_sub_rank(t_args **storage)
 		}
 	}
 	return (0);
-}
+}*/ //// sort_by_sub_rank
+/*int		set_sub_rank(t_args **storage, int rank, int index_min)
+{
+	int step_width;
+	t_num *tmp;
+
+	step_width = (*storage)->stack_a_num / 3;
+	tmp = (*storage)->head_a;
+	while (tmp)
+	{
+		if (tmp->index >= index_min && tmp->index < index_min + step_width)
+			tmp->rank = rank + 1;
+		else if (tmp->index >= index_min + step_width && tmp->index < index_min + step_width * 2)
+			tmp->rank = rank + 2;
+		else
+			tmp->rank = rank + 3;
+		tmp = tmp->next;
+	}
+	return (0);
+}*/ //// set_sub_rank
 
 int		sort_by_rank(t_args **storage)
 {
@@ -50,26 +69,6 @@ int		sort_by_rank(t_args **storage)
 			r_rotate(&(*storage)->head_b, &(*storage)->tail_b);
 			(*storage)->stack_a_num -= 1;
 		}
-	}
-	return (0);
-}
-
-int		set_sub_rank(t_args **storage, int rank, int index_min)
-{
-	int step_width;
-	t_num *tmp;
-
-	step_width = (*storage)->stack_a_num / 3;
-	tmp = (*storage)->head_a;
-	while (tmp)
-	{
-		if (tmp->index >= index_min && tmp->index < index_min + step_width)
-			tmp->rank = rank + 1;
-		else if (tmp->index >= index_min + step_width && tmp->index < index_min + step_width * 2)
-			tmp->rank = rank + 2;
-		else
-			tmp->rank = rank + 3;
-		tmp = tmp->next;
 	}
 	return (0);
 }
@@ -115,12 +114,12 @@ void	find_max_min(t_args **storage)
 	}
 }
 
-void	**sort_stack_a(t_args **storage)
+/*void	sort_stack_a(t_args **storage)
 {
 	find_max_min(storage);
-	while (is_sorted((*storage)->head_a) == -1)
+	while (is_sorted(*storage) == -1)
 	{
-		if ((*storage)->head_a->index == (*storage)->max_index_stack_a && is_sorted((*storage)->head_a->next) == 1)
+		if ((*storage)->head_a->index == (*storage)->max_index_stack_a && is_sorted(*storage) == 1)
 		{
 			r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
 			ft_printf("ra\n");
@@ -143,7 +142,7 @@ void	**sort_stack_a(t_args **storage)
 		}
 	}
 
-}
+}*/
 
 int		sort_32(t_args **storage, int step_width)
 {
@@ -151,7 +150,7 @@ int		sort_32(t_args **storage, int step_width)
 	int tmp_index = 0;
 	int inc = 0;
 
-	if (!(is_sorted((*storage)->head_a)))
+	if (!(is_sorted_checker((*storage)->head_a)))
 		return (-1);
 	if (!(*storage)->head_b)
 		return (-1);

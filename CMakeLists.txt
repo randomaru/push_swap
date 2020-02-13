@@ -110,6 +110,7 @@ add_executable(push_swap
         ft_printf/src/print_check.c
         inc/push_swap.h
 #        src/checker.c
+        src/sort_new.c
         src/operations.c
         src/push_swap.c
         src/save_data.c

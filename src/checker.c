@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:33 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/01 19:21:06 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/13 19:27:20 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,23 +116,25 @@ int 	valid_and_parse_args(t_args *storage)
 	int res;
 	char *line;
 
-	int fd = open("/Users/tamarant/Desktop/projects/push_swap/src/test_checker", O_RDONLY);
-//	while ((res = not_mine_get_next_line(0, &line)) != EOF)
-	while ((res = not_mine_get_next_line(fd, &line)) != EOF)
+//	int fd = open("/Users/tamarant/Desktop/projects/push_swap/src/test_checker", O_RDONLY);
+	while ((res = not_mine_get_next_line(0, &line)) > 0)
+
 	{
+		if (*line == '\0')
+		{
+			free(line);
+			break ; /////pipe запустить гнл еще раз?????
+		}
 		if (parse_args(storage, line) == -1)
 		{
 			printf("ERROR\n");
 			return (0);
 		}
-		if (line == NULL)
-			return ((is_sorted(storage) == 1) ? 1 : -1);
 		putendl(line);
 		free(line);
 		line = NULL;
 	}
-	return (-1);
-
+	return ((is_sorted(storage) == 1) ? 1 : -1);
 }
 
 int 	main(int argc, char **argv)
