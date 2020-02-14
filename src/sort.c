@@ -79,6 +79,7 @@ void	set_rank(t_args **storage)
 	t_num *tmp;
 
 	step_width = (*storage)->stack_a_num / 3;
+	(*storage)->step_width = step_width; ////можно убрать переменную
 	tmp = (*storage)->head_a;
 	while (tmp)
 	{
@@ -87,7 +88,10 @@ void	set_rank(t_args **storage)
 		else if (tmp->index >= 1 + step_width && tmp->index < 1 + step_width * 2)
 			tmp->rank = 2;
 		else
+		{
 			tmp->rank = 3;
+			(*storage)->third_step_width += 1;
+		}
 		tmp = tmp->next;
 	}
 }
@@ -142,7 +146,7 @@ void	find_max_min(t_args **storage)
 		}
 	}
 
-}*/
+}*/ ////sort_stack_a
 
 int		sort_32(t_args **storage, int step_width)
 {

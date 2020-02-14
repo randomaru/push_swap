@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:22:29 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/13 20:23:02 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/14 16:06:31 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,11 @@
 
 void	set_depth(t_args **storage)
 {
+	t_num *tmp;
 
+	
+	if ((*storage)->is_sort == 3)
+	{
+
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/13 18:25:34 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:59:43 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 		int 			stack_b_num;
 		int 			max_index_stack_a;
 		int 			min_index_stack_a;
+		int				is_sort;
+		int				step_width;
+		int 			third_step_width;
 	}					t_args;
 
 void 					final_free(t_num **head);

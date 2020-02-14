@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/10 19:33:52 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/14 15:49:00 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ int		main(int argc, char **argv)
 	}
 	set_index(&storage->head_a);
 	set_rank(&storage);
-/*	head_tmp = storage->head_a;
+	sort_by_rank(&storage);
+	print_stacks(storage->head_a, storage->head_b);
+
+
+			/*	head_tmp = storage->head_a;
 	while (head_tmp != NULL)
 	{
 		ft_printf("%2i %2i %2i\n", head_tmp->number, head_tmp->index, head_tmp->rank);
@@ -93,18 +97,10 @@ int		main(int argc, char **argv)
 		tail = tail->prev;
 	}*/ //проверяем tail
 
-	sort_by_rank(&storage);
-	print_stacks(storage->head_a, storage->head_b);
-
+/*
 	set_sub_rank(&storage, 30, 13); //// обрати внимание на второй аргумент
 	sort_by_sub_rank(&storage);
-	print_stacks(storage->head_a, storage->head_b);
-
-//	sort_stack_a(&storage);
-//	print_stacks(storage->head_a, storage->head_b);
-
-	sort_32(&storage, 2);
-	print_stacks(storage->head_a, storage->head_b);
+	print_stacks(storage->head_a, storage->head_b);*/
 
 	final_free(&storage->head_a);
 
