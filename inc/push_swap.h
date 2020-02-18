@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/14 15:59:43 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:57:09 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 		int 			number;
 		int				index;
 		int 			rank;
+		int 			sub_rank;
 		int				depth;
 		struct s_number	*next;
 		struct s_number	*prev;
@@ -68,7 +69,11 @@ int		is_sorted(t_args *storage);
 void	print_stacks(t_num *head_a, t_num *head_b);
 
 
-int		sort_32(t_args **storage, int step_width);
+int set_depth(t_args **storage, int depth);
+void	find_max_min(t_args **storage);
+void sort_by_depth(t_args **storage, int step_width);
+
+
 
 
 #endif

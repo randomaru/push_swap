@@ -148,6 +148,7 @@ void	find_max_min(t_args **storage)
 
 }*/ ////sort_stack_a
 
+/*
 int		sort_32(t_args **storage, int step_width)
 {
 	////набросок, учитывать tail
@@ -183,4 +184,4 @@ int		sort_32(t_args **storage, int step_width)
 			rr_reverse(&(*storage)->head_b, &(*storage)->tail_b);
 	}
 	return (1);
-}
+}*/ ////sort_32

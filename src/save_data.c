@@ -32,6 +32,7 @@ t_num		*new_t_num(void)
 	new->number = 0;
 	new->index = -1;
 	new->rank = 0;
+	new->sub_rank = 0;
 	new->depth = 0;
 	new->next = NULL;
 	new->prev = NULL;
