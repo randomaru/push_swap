@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/14 15:49:00 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/20 16:05:24 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 
 	}
 	ft_printf("%7s | %7s\n", "stack A", "stack B");
-}*/
+}*/ //// old print_stacks
 
 int		main(int argc, char **argv)
 {
@@ -81,9 +81,11 @@ int		main(int argc, char **argv)
 	set_rank(&storage);
 	sort_by_rank(&storage);
 	print_stacks(storage->head_a, storage->head_b);
+	set_depth(&storage, storage->head_a->depth);
+	print_stacks(storage->head_a, storage->head_b);
 
 
-			/*	head_tmp = storage->head_a;
+	/*	head_tmp = storage->head_a;
 	while (head_tmp != NULL)
 	{
 		ft_printf("%2i %2i %2i\n", head_tmp->number, head_tmp->index, head_tmp->rank);

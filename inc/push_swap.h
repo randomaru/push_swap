@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/18 20:57:09 by mac              ###   ########.fr       */
+/*   Updated: 2020/02/20 16:45:50 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,18 @@ int						save_numbers(char *argv, t_num **new, t_args **storage);
 int						s_swap(t_num **head);
 int						r_rotate(t_num **head, t_num **tail);
 int						rr_reverse(t_num **head, t_num **tail);
-//int						push(char c, t_num **head_a, t_num **head_b);
 int						push(char c, t_args **storage);
-void	set_rank(t_args **storage);
-int		set_sub_rank(t_args **storage, int rank, int index_min);
-int		sort_by_rank(t_args **storage);
-int		sort_by_sub_rank(t_args **storage);
-
-void	sort_stack_a(t_args **storage);
-
-
+void					print_stacks(t_num *head_a, t_num *head_b);
+void					set_rank(t_args **storage);
+int						sort_by_rank(t_args **storage);
+int						set_depth(t_args **storage, int depth);
+void					sort_by_depth(t_args **storage, int step_width);
 
 int		is_sorted_checker(t_num *head);
-int		is_sorted(t_args *storage);
-void	print_stacks(t_num *head_a, t_num *head_b);
 
-
-int set_depth(t_args **storage, int depth);
+int		is_sorted_stack_a(t_args *storage);
 void	find_max_min(t_args **storage);
-void sort_by_depth(t_args **storage, int step_width);
-
-
+int 	sort_third(t_args **storage);
 
 
 #endif

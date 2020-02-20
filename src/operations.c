@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/13 18:25:07 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/20 16:04:02 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,33 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 	ft_printf("\n");
 	while (tmp_a || tmp_b)
 	{
-		if (tmp_b == NULL && tmp_a)
+//		if (tmp_b == NULL && tmp_a)
+		if (tmp_a && !tmp_b)
+
 		{
-			ft_printf("%7i | %7c\n", tmp_a->number, ' ');
+//			ft_printf("%7c | %7i\n", ' ', tmp_a->number);
+			ft_printf("%7i %2i %2i | %13c\n", tmp_a->number, tmp_a->rank, tmp_a->depth, ' ');
 			tmp_a = tmp_a->next;
 		}
-		else if (tmp_a == NULL && tmp_b)
+//		else if (tmp_a == NULL && tmp_b)
+		else if (tmp_b && !tmp_a)
 		{
-			ft_printf("%7c | %7i\n", ' ', tmp_b->number);
+//			ft_printf("%7c | %7i\n", ' ', tmp_b->number);
+			ft_printf("%13c | %7i %2i %2i\n", ' ', tmp_b->number, tmp_b->rank, tmp_b->depth);
+
 			tmp_b = tmp_b->next;
 		}
 		else if (tmp_a && tmp_b)
 		{
-			ft_printf("%7i | %7i\n", tmp_a->number, tmp_b->number);
+//			ft_printf("%7i | %7i\n", tmp_a->number, tmp_b->number);
+			ft_printf("%7i %2i %2i | %7i %2i %2i \n", tmp_a->number, tmp_a->rank, tmp_a->depth, tmp_b->number, tmp_b->rank, tmp_b->depth);
 			tmp_a = tmp_a->next;
 			tmp_b = tmp_b->next;
 		}
 
 	}
-	ft_printf("%7s | %7s\n", "stack A", "stack B");
+//	ft_printf("%7s | %7s\n", "stack A", "stack B");
+	ft_printf("%13s | %13s\n", "stack A", "stack B");
 }
 
 int		is_sorted_checker(t_num *head)
@@ -126,7 +134,6 @@ int rr_reverse(t_num **head, t_num **tail)
 	return (1);
 }
 
-//int push(char c, t_num **head_a, t_num **head_b)
 int push(char c, t_args **storage)
 {
 	t_num **from;
