@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:22:29 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/20 17:51:55 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/20 18:21:39 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,26 @@ int		is_sorted_stack_a(t_args *storage)
 
 int 	sort_third_down(t_args **storage, int depth, int sub_rank)
 {
+	t_num *curr;
+	t_num *prev = NULL;
 
+	while ((*storage)->tail_b->depth == depth && (*storage)->tail_b->sub_rank == sub_rank)
+	{
+		curr = (*storage)->tail_b;
+		if ((curr->prev) && curr->prev->sub_rank == sub_rank && curr->prev->depth == depth)
+			prev = curr->prev;
+		if (curr->index > prev->index)
+		{
+			rr_reverse(&(*storage)->head_b, &(*storage)->tail_b);
+			rr_reverse(&(*storage)->head_b, &(*storage)->tail_b);
+			s_swap(&(*storage)->head_b);
+		}
+		else
+			rr_reverse(&(*storage)->head_b, &(*storage)->tail_b);
+		prev = NULL;
+	}
+	sort_third_up(storage, depth, sub_rank);
+	print_stacks((*storage)->head_a, (*storage)->head_b);
 }
 
 
@@ -168,5 +187,6 @@ int 	sort_third(t_args **storage)
 	print_stacks((*storage)->head_a, (*storage)->head_b);
 	sort_third_up(storage, (*storage)->head_a->depth, (*storage)->head_a->sub_rank -= 1);
 	print_stacks((*storage)->head_a, (*storage)->head_b);
+	sort_third_down(storage, (*storage)->head_a->depth, (*storage)->head_a->sub_rank -= 1);
 	return (1);
 }

@@ -65,6 +65,7 @@ int		is_sorted_checker(t_num *head);
 int		is_sorted_stack_a(t_args *storage);
 void	find_max_min(t_args **storage);
 int 	sort_third(t_args **storage);
-
+int 	sort_third_up(t_args **storage, int depth, int sub_rank);
+int 	sort_third_down(t_args **storage, int depth, int sub_rank);
 
 #endif
