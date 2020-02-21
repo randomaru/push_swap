@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:22:29 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/20 18:21:39 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:40:58 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		set_depth(t_args **storage, int depth) {
 
 
 	find_max_min(storage);
-	if ((*storage)->is_sort == 3) {
+	if ((*storage)->is_sort == 3)
+	{
 		tmp = (*storage)->head_a;
 		if ((*storage)->stack_a_num > 6) {
 			step_width = (*storage)->stack_a_num / 3;
@@ -52,8 +53,9 @@ int		set_depth(t_args **storage, int depth) {
 			sort_by_depth(storage, 3);
 		if ((*storage)->stack_a_num > 6)
 			return (set_depth(storage, depth += 1));
-		if ((*storage)->stack_a_num < 6) {
-			sort_third(storage);
+		if ((*storage)->stack_a_num < 6)
+		{
+//			sort_third(storage);
 			return (1); //// можно начинать сортировать, базовый случай достигнут
 		}
 	}
@@ -66,6 +68,8 @@ void sort_by_depth(t_args **storage, int step_width)
 	count = (*storage)->stack_a_num;
 	if (step_width == 3)
 	{
+		if ((*storage)->curr_subrank == -1)
+			(*storage)->curr_subrank = 3;
 		while (count--)
 		{
 			if ((*storage)->head_a->sub_rank == 3)
@@ -87,6 +91,8 @@ void sort_by_depth(t_args **storage, int step_width)
 	{
 		while (count--)
 		{
+			if ((*storage)->curr_subrank == -1)
+				(*storage)->curr_subrank = 2;
 			if ((*storage)->head_a->sub_rank == 2)
 			{
 				if ((*storage)->head_a->index < ((*storage)->head_b->index))
@@ -104,22 +110,6 @@ void sort_by_depth(t_args **storage, int step_width)
 
 }
 
-int		is_sorted_stack_a(t_args *storage)
-{
-	t_num *tmp;
-	int curr;
-
-	tmp = storage->head_a;
-	while (tmp)
-	{
-		curr = tmp->index;
-		tmp = tmp->next;
-		if ((tmp) && curr > tmp->index)
-			return (-1);
-	}
-	return (1);
-}
-
 int 	sort_third_down(t_args **storage, int depth, int sub_rank)
 {
 	t_num *curr;
@@ -130,7 +120,7 @@ int 	sort_third_down(t_args **storage, int depth, int sub_rank)
 		curr = (*storage)->tail_b;
 		if ((curr->prev) && curr->prev->sub_rank == sub_rank && curr->prev->depth == depth)
 			prev = curr->prev;
-		if (curr->index > prev->index)
+		if (prev && curr->index > prev->index)
 		{
 			rr_reverse(&(*storage)->head_b, &(*storage)->tail_b);
 			rr_reverse(&(*storage)->head_b, &(*storage)->tail_b);
@@ -140,30 +130,77 @@ int 	sort_third_down(t_args **storage, int depth, int sub_rank)
 			rr_reverse(&(*storage)->head_b, &(*storage)->tail_b);
 		prev = NULL;
 	}
-	sort_third_up(storage, depth, sub_rank);
+	sort_up_b(storage);
 	print_stacks((*storage)->head_a, (*storage)->head_b);
 }
 
 
-int 	sort_third_up(t_args **storage, int depth, int sub_rank)
+int		sort_up_b(t_args **storage)
 {
 	t_num *curr;
 	t_num *next;
 
-	while ((*storage)->head_b->depth == depth && (*storage)->head_b->sub_rank == sub_rank)
+	next = NULL;
+	curr = (*storage)->head_b;
+	if (curr->next)
+		next = curr->next;
+	while (curr->depth == (*storage)->curr_depth && curr->sub_rank == (*storage)->curr_subrank)
 	{
 		curr = (*storage)->head_b;
-		next = curr->next;
+		if (curr->next)
+			next = curr->next;
 		if (next && curr->index < next->index)
-			s_swap(&(*storage)->head_b);
+			s_swap(&curr);
 		if ((*storage)->head_a->index > (*storage)->head_a->next->index)
 			s_swap(&(*storage)->head_a);
-		if ((*storage)->head_b->depth == depth && (*storage)->head_b->sub_rank == sub_rank)
+		if (curr->depth == (*storage)->curr_depth && curr->sub_rank == (*storage)->curr_subrank)
 			push('a', storage);
 	}
-	if (is_sorted_stack_a(*storage) == 1)
+//	if (is_sorted_stack_a(*storage) == 1)
+//		return (1);
+	if (is_sorted_first_three(*storage) == 1)
 		return (1);
 	return (-1);
+}
+
+int		sort_up_a(t_args **storage)
+{
+	t_num *curr;
+	t_num *next;
+
+	next = NULL;
+	curr = (*storage)->head_a;
+	if (curr->next)
+		next = curr->next;
+	while (curr->depth == (*storage)->curr_depth && curr->sub_rank == (*storage)->curr_subrank)
+	{
+		if (next && curr->index > next->index)
+			s_swap(&curr);
+		else
+		{
+			rr_reverse(&curr, &(*storage)->tail_a);
+			s_swap(&curr);
+			r_rotate(&curr, &(*storage)->tail_a);
+		}
+	}
+	if (is_sorted_first_three(*storage) == 1)
+		return (1);
+	return (-1);
+}
+
+int		is_depth(t_args **storage, int depth)
+{
+	t_num *tmp;
+
+	tmp = (*storage)->head_b;
+	while (tmp)
+	{
+		if (tmp->depth == depth)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (-1);
+
 }
 
 
@@ -184,9 +221,52 @@ int 	sort_third(t_args **storage)
 		else
 			rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
 	}
+	(*storage)->curr_subrank -= 1;
 	print_stacks((*storage)->head_a, (*storage)->head_b);
-	sort_third_up(storage, (*storage)->head_a->depth, (*storage)->head_a->sub_rank -= 1);
+	sort_up_b(storage);
+	(*storage)->curr_subrank -= 1;
+
 	print_stacks((*storage)->head_a, (*storage)->head_b);
 	sort_third_down(storage, (*storage)->head_a->depth, (*storage)->head_a->sub_rank -= 1);
+	print_stacks((*storage)->head_a, (*storage)->head_b);
+
 	return (1);
 }
+
+/*int 	sort_up(t_args **storage, char stack)
+{
+	t_num *curr;
+	t_num *next;
+	t_num *other;
+
+	curr = NULL;
+	next = NULL;
+	other = NULL;
+	if (stack == 'b')
+	{
+		curr = (*storage)->head_b;
+		if (curr->next)
+			next = curr->next;
+		other = (*storage)->head_a;
+	}
+	else
+	{
+		curr = (*storage)->head_a;
+		if (curr->next)
+			next = curr->next;
+		other = (*storage)->head_b;
+	}
+	while (curr->depth == (*storage)->curr_depth && curr->sub_rank == (*storage)->curr_subrank)
+	{
+		if (next && curr->index < next->index)
+			s_swap(&curr);
+		if ((*storage)->head_a->index > (*storage)->head_a->next->index)
+			s_swap(&(*storage)->head_a);
+		if (curr->depth == (*storage)->curr_depth && curr->sub_rank == (*storage)->curr_subrank)
+			push('a', storage);
+	}
+	if (is_sorted_stack_a(*storage) == 1)
+		return (1);
+	return (-1);
+}*/
+

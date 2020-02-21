@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/20 16:04:02 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:11:42 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,65 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 
 		{
 //			ft_printf("%7c | %7i\n", ' ', tmp_a->number);
-			ft_printf("%7i %2i %2i | %13c\n", tmp_a->number, tmp_a->rank, tmp_a->depth, ' ');
+			ft_printf("%7i r%i d%i sr%i | %16c\n", tmp_a->number, tmp_a->rank, tmp_a->depth, tmp_a->sub_rank, ' ');
 			tmp_a = tmp_a->next;
 		}
 //		else if (tmp_a == NULL && tmp_b)
 		else if (tmp_b && !tmp_a)
 		{
 //			ft_printf("%7c | %7i\n", ' ', tmp_b->number);
-			ft_printf("%13c | %7i %2i %2i\n", ' ', tmp_b->number, tmp_b->rank, tmp_b->depth);
+			ft_printf("%17c | %7i r%i d%i sr%i\n", ' ', tmp_b->number, tmp_b->rank, tmp_b->depth, tmp_b->sub_rank);
 
 			tmp_b = tmp_b->next;
 		}
 		else if (tmp_a && tmp_b)
 		{
 //			ft_printf("%7i | %7i\n", tmp_a->number, tmp_b->number);
-			ft_printf("%7i %2i %2i | %7i %2i %2i \n", tmp_a->number, tmp_a->rank, tmp_a->depth, tmp_b->number, tmp_b->rank, tmp_b->depth);
+			ft_printf("%7i r%i d%i sr%i | %7i r%i d%i sr%i \n",
+					tmp_a->number, tmp_a->rank, tmp_a->depth, tmp_a->sub_rank,
+					tmp_b->number, tmp_b->rank, tmp_b->depth, tmp_b->sub_rank);
 			tmp_a = tmp_a->next;
 			tmp_b = tmp_b->next;
 		}
 
 	}
 //	ft_printf("%7s | %7s\n", "stack A", "stack B");
-	ft_printf("%13s | %13s\n", "stack A", "stack B");
+	ft_printf("%17s | %17s\n", "stack A", "stack B");
+}
+
+int		is_sorted_stack_a(t_args *storage)
+{
+	t_num *tmp;
+	int curr;
+
+	tmp = storage->head_a;
+	while (tmp)
+	{
+		curr = tmp->index;
+		tmp = tmp->next;
+		if ((tmp) && curr > tmp->index)
+			return (-1);
+	}
+	return (1);
+}
+
+int is_sorted_first_three(t_args *storage)
+{
+	t_num *tmp;
+	int curr;
+	int i;
+
+	i = 0;
+	tmp = storage->head_a;
+	while (tmp && i < 3)
+	{
+		curr = tmp->index;
+		tmp = tmp->next;
+		if ((tmp) && curr != tmp->index + 1)
+			return (-1);
+		i++;
+	}
+	return (1);
 }
 
 int		is_sorted_checker(t_num *head)

@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:53 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/20 14:35:27 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/21 14:57:47 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ t_args 		*new_t_args(void)
 	new->is_sort = 3;
 	new->step_width = 0;
 	new->third_step_width = 0;
+	new->curr_rank = -1;
+	new->curr_subrank = -1;
+	new->curr_depth = -1;
 	return (new);
 }
 
