@@ -87,7 +87,8 @@ int		main(int argc, char **argv)
 		if (storage->curr_depth == -1)
 			storage->curr_depth = storage->head_a->depth;
 		print_stacks(storage->head_a, storage->head_b);
-		sort_third(&storage);
+		if (sort_third(&storage) == -1)
+			return (-1);
 	}
 	/*	while (storage->is_sort != 0)
 	{

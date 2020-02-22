@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:22:29 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/21 17:40:58 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/22 19:31:17 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int		set_depth(t_args **storage, int depth) {
 					tmp->sub_rank = 3;
 				tmp = tmp->next;
 			}
-		} else if ((*storage)->stack_a_num > 3 && ((*storage)->stack_a_num < 7)) {
+		}
+		else if ((*storage)->stack_a_num > 3 && ((*storage)->stack_a_num < 7)) {
 			step_width = (*storage)->stack_a_num / 2;
 			while (tmp) {
 				if (tmp->index >= (*storage)->min_index_stack_a &&
@@ -55,13 +56,34 @@ int		set_depth(t_args **storage, int depth) {
 			return (set_depth(storage, depth += 1));
 		if ((*storage)->stack_a_num < 6)
 		{
+			if ((*storage)->sorted_subrank == -1)
+				(*storage)->sorted_subrank = 3;
 //			sort_third(storage);
 			return (1); //// можно начинать сортировать, базовый случай достигнут
 		}
 	}
 }
 
-void sort_by_depth(t_args **storage, int step_width)
+int		find_sr_width(t_args *storage, t_num *head)
+{
+	int 	width;
+	t_num	*tmp;
+
+	width = 0;
+	if (!head)
+		return (-1);
+	tmp = head;
+	while (tmp && tmp->rank == storage->curr_rank
+		   && tmp->depth == storage->curr_depth
+		   && tmp->sub_rank == storage->curr_subrank)
+	{
+		width++;
+		tmp = tmp->next;
+	}
+	return (width);
+}
+
+void	sort_by_depth(t_args **storage, int step_width)
 {
 	int 	count;
 
@@ -158,9 +180,9 @@ int		sort_up_b(t_args **storage)
 	}
 //	if (is_sorted_stack_a(*storage) == 1)
 //		return (1);
-	if (is_sorted_first_three(*storage) == 1)
+//	if (is_sorted_first_three(*storage) == 1)
 		return (1);
-	return (-1);
+//	return (-1);
 }
 
 int		sort_up_a(t_args **storage)
@@ -222,51 +244,36 @@ int 	sort_third(t_args **storage)
 			rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
 	}
 	(*storage)->curr_subrank -= 1;
-	print_stacks((*storage)->head_a, (*storage)->head_b);
+//	print_stacks((*storage)->head_a, (*storage)->head_b);
 	sort_up_b(storage);
 	(*storage)->curr_subrank -= 1;
-
-	print_stacks((*storage)->head_a, (*storage)->head_b);
+//	print_stacks((*storage)->head_a, (*storage)->head_b);
 	sort_third_down(storage, (*storage)->head_a->depth, (*storage)->head_a->sub_rank -= 1);
 	print_stacks((*storage)->head_a, (*storage)->head_b);
-
+	if (is_depth_sorted(*storage, (*storage)->head_a) == -1)
+		return (-1);
+	if ((*storage)->first == 0)
+		(*storage)->first = 1;
+	(*storage)->curr_depth -= 1;
+	(*storage)->sorted_subrank -= 1;
 	return (1);
 }
 
-/*int 	sort_up(t_args **storage, char stack)
+int 	is_depth_sorted(t_args *storage, t_num *head)
 {
-	t_num *curr;
+	t_num *tmp;
 	t_num *next;
-	t_num *other;
 
-	curr = NULL;
+	tmp = head;
 	next = NULL;
-	other = NULL;
-	if (stack == 'b')
+	if (tmp->next)
+		next = tmp->next;
+	while (next && tmp && tmp->rank == storage->curr_rank && tmp->depth == storage->curr_depth)
 	{
-		curr = (*storage)->head_b;
-		if (curr->next)
-			next = curr->next;
-		other = (*storage)->head_a;
+		if (tmp && tmp->index > next->index)
+			return (-1);
+		tmp = tmp->next;
+		next = next->next;
 	}
-	else
-	{
-		curr = (*storage)->head_a;
-		if (curr->next)
-			next = curr->next;
-		other = (*storage)->head_b;
-	}
-	while (curr->depth == (*storage)->curr_depth && curr->sub_rank == (*storage)->curr_subrank)
-	{
-		if (next && curr->index < next->index)
-			s_swap(&curr);
-		if ((*storage)->head_a->index > (*storage)->head_a->next->index)
-			s_swap(&(*storage)->head_a);
-		if (curr->depth == (*storage)->curr_depth && curr->sub_rank == (*storage)->curr_subrank)
-			push('a', storage);
-	}
-	if (is_sorted_stack_a(*storage) == 1)
-		return (1);
-	return (-1);
-}*/
-
+	return (1);
+}

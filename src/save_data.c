@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:53 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/21 14:57:47 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/22 18:52:58 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_args 		*new_t_args(void)
 	new->head_b = NULL;
 	new->tail_a = NULL;
 	new->tail_b = NULL;
+	new->first = 0;
 	new->stack_a_num = 0;
 	new->stack_b_num = 0;
 	new->min_index_stack_a = 0;
@@ -59,6 +60,7 @@ t_args 		*new_t_args(void)
 	new->curr_rank = -1;
 	new->curr_subrank = -1;
 	new->curr_depth = -1;
+	new->sorted_subrank = -1;
 	return (new);
 }
 

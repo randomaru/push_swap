@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/21 17:11:42 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/22 18:42:58 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,3 +214,78 @@ int push(char c, t_args **storage)
 	}
 	return (1);
 }
+
+
+/*
+73 r3 d2 sr1 |      65 r3 d1 sr2
+74 r3 d2 sr1 |      64 r3 d1 sr2
+75 r3 d2 sr1 |      72 r3 d1 sr2
+76 r3 d2 sr1 |      69 r3 d1 sr2 ---> head B
+78 r3 d2 sr2 |      71 r3 d1 sr2
+79 r3 d2 sr3 |      66 r3 d1 sr2
+80 r3 d2 sr3 |      70 r3 d1 sr2
+81 r3 d2 sr3 |      68 r3 d1 sr2
+			|      54 r2 d0 sr0
+			|      32 r2 d0 sr0
+			|      31 r2 d0 sr0
+			|      33 r2 d0 sr0
+			|      45 r2 d0 sr0
+			|      30 r2 d0 sr0
+			|      46 r2 d0 sr0
+			|      39 r2 d0 sr0
+			|      50 r2 d0 sr0
+			|      49 r2 d0 sr0
+			|      28 r2 d0 sr0
+			|      48 r2 d0 sr0
+			|      36 r2 d0 sr0
+			|      53 r2 d0 sr0
+			|      35 r2 d0 sr0
+			|      38 r2 d0 sr0
+			|      29 r2 d0 sr0
+			|      43 r2 d0 sr0
+			|      41 r2 d0 sr0
+			|      51 r2 d0 sr0
+			|      52 r2 d0 sr0
+			|      40 r2 d0 sr0
+			|      42 r2 d0 sr0
+			|      37 r2 d0 sr0
+			|      44 r2 d0 sr0
+			|      34 r2 d0 sr0
+			|      47 r2 d0 sr0
+			|      18 r1 d0 sr0
+			|      24 r1 d0 sr0
+			|      13 r1 d0 sr0
+			|      22 r1 d0 sr0
+			|      21 r1 d0 sr0
+			|       9 r1 d0 sr0
+			|      10 r1 d0 sr0
+			|       1 r1 d0 sr0
+			|      27 r1 d0 sr0
+			|      26 r1 d0 sr0
+			|       4 r1 d0 sr0
+			|      14 r1 d0 sr0
+			|      17 r1 d0 sr0
+			|       2 r1 d0 sr0
+			|       3 r1 d0 sr0
+			|      11 r1 d0 sr0
+			|       6 r1 d0 sr0
+			|      12 r1 d0 sr0
+			|      16 r1 d0 sr0
+			|      15 r1 d0 sr0
+			|      20 r1 d0 sr0
+			|      25 r1 d0 sr0
+			|      19 r1 d0 sr0
+			|       8 r1 d0 sr0
+			|       7 r1 d0 sr0
+			|      23 r1 d0 sr0
+			|       5 r1 d0 sr0
+			|      56 r3 d1 sr1
+			|      55 r3 d1 sr1
+			|      59 r3 d1 sr1
+			|      60 r3 d1 sr1
+			|      57 r3 d1 sr1
+			|      58 r3 d1 sr1
+			|      62 r3 d1 sr1
+			|      63 r3 d1 sr1
+			|      61 r3 d1 sr1
+		stack A |           stack B*/

@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/21 17:03:50 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/22 18:52:58 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 		t_num 			*tail_a;
 		t_num 			*tail_b;
 
+		int				first;
 		int 			stack_a_num;
 		int 			stack_b_num;
 		int 			max_index_stack_a;
@@ -46,6 +47,7 @@
 		int 			curr_rank;
 		int 			curr_subrank;
 		int 			curr_depth;
+		int				sorted_subrank;
 	}					t_args;
 
 void 					final_free(t_num **head);
@@ -72,5 +74,7 @@ void	find_max_min(t_args **storage);
 int 	sort_third(t_args **storage);
 int		sort_up_b(t_args **storage);
 int 	sort_third_down(t_args **storage, int depth, int sub_rank);
+int 	is_depth_sorted(t_args *storage, t_num *head);
+
 
 #endif
