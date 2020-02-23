@@ -49,18 +49,9 @@ t_args 		*new_t_args(void)
 	new->head_b = NULL;
 	new->tail_a = NULL;
 	new->tail_b = NULL;
-	new->first = 0;
 	new->stack_a_num = 0;
 	new->stack_b_num = 0;
-	new->min_index_stack_a = 0;
-	new->max_index_stack_a = 0;
-	new->is_sort = 3;
-	new->step_width = 0;
-	new->third_step_width = 0;
 	new->curr_rank = -1;
-	new->curr_subrank = -1;
-	new->curr_depth = -1;
-	new->sorted_subrank = -1;
 	return (new);
 }
 

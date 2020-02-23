@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/21 15:02:54 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/23 17:46:30 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,49 +78,14 @@ int		main(int argc, char **argv)
 		}
 	}
 	set_index(&storage->head_a);
-	set_rank(&storage);
-	sort_by_rank(&storage);
 	print_stacks(storage->head_a, storage->head_b);
-	storage->curr_rank = storage->head_a->rank;
-	if (set_depth(&storage, storage->head_a->depth) == 1)
-	{
-		if (storage->curr_depth == -1)
-			storage->curr_depth = storage->head_a->depth;
-		print_stacks(storage->head_a, storage->head_b);
-		if (sort_third(&storage) == -1)
-			return (-1);
-	}
-	/*	while (storage->is_sort != 0)
-	{
-		if (set_depth(&storage, storage->head_a->depth) == 1)
-		{
-			print_stacks(storage->head_a, storage->head_b);
-			sort_third(&storage);
-		}
 
-	}*/
+	set_part(&storage);
+	print_stacks(storage->head_a, storage->head_b);
+	stack_b_division(&storage);
+	print_stacks(storage->head_a, storage->head_b);
 
-
-	/*	head_tmp = storage->head_a;
-	while (head_tmp != NULL)
-	{
-		ft_printf("%2i %2i %2i\n", head_tmp->number, head_tmp->index, head_tmp->rank);
-		head_tmp = head_tmp->next;
-	}
-	ft_printf("\n");*/ //проверка index && rank
-/*	tail = storage->tail_a;
-	while (tail)
-	{
-		ft_printf("%2i %2i\n", tail->number, tail->index);
-		tail = tail->prev;
-	}*/ //проверяем tail
-
-/*
-	set_sub_rank(&storage, 30, 13); //// обрати внимание на второй аргумент
-	sort_by_sub_rank(&storage);
-	print_stacks(storage->head_a, storage->head_b);*/
 
 	final_free(&storage->head_a);
-
 	return (0);
 }
