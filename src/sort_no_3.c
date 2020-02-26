@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:41:52 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/23 19:01:06 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/26 19:02:16 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,20 @@ int		stack_b_division(t_args **storage)
  	min = find_min_stack_b(*storage);
 	tmp = (*storage)->head_b;
 	(*storage)->curr_rank += 1;
-	while (tmp)
+	int count = (*storage)->stack_b_num;
+	while (tmp && count--)
 	{
 
 		if (tmp->index >= min && tmp->index < min + step_width)
 		{
+            tmp = tmp->next;
 			r_rotate(&(*storage)->head_b, &(*storage)->tail_b);
-			tmp = tmp->next;
 		}
 		else
 		{
 			tmp->rank = (*storage)->curr_rank;
 			push('a', storage);
+            (*storage)->stack_b_num -= 1;
 			tmp = (*storage)->head_b;
 		}
 	}
@@ -97,5 +99,45 @@ int		stack_b_division(t_args **storage)
  		tmp = tmp->next;
 	}
  	return (min);
+
+ }
+
+ int    stack_b_op(t_args **storage)
+ {
+    int i = 0;
+    t_num *curr;
+    t_num *next = NULL;
+
+    while (stack_b_division(storage) == 1)
+    {
+        print_stacks((*storage)->head_a, (*storage)->head_b);
+
+    }
+    if ((*storage)->head_b && (*storage)->stack_b_num < 4)
+    {
+        (*storage)->curr_rank = (*storage)->head_b->rank;
+        while ((*storage)->head_b)
+        {
+            curr = (*storage)->head_b;
+            if (curr->next)
+                next = curr->next;
+            if (next && curr < next)
+                s_swap(&(*storage)->head_b);
+            push('a', storage);
+            if ((*storage)->head_a->next->rank == (*storage)->curr_rank && (*storage)->head_a->index > (*storage)->head_a->next->index)
+                s_swap(&(*storage)->head_a);
+        }
+        print_stacks((*storage)->head_a, (*storage)->head_b);
+        while ((*storage)->head_a->rank == (*storage)->curr_rank)
+            r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+    }
+     print_stacks((*storage)->head_a, (*storage)->head_b);
+     /*   if (!(*storage)->head_b)
+            sort_head_a(storage);*/
+    return (1);
+ }
+
+ int    sort_head_a(t_args **storage)
+ {
 
  }

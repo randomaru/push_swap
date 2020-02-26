@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 20:22:29 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/22 19:31:17 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/26 15:10:16 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ int 	is_depth_sorted(t_args *storage, t_num *head)
 		next = tmp->next;
 	while (next && tmp && tmp->rank == storage->curr_rank && tmp->depth == storage->curr_depth)
 	{
-		if (tmp && tmp->index > next->index)
+		if (tmp->index > next->index)
 			return (-1);
 		tmp = tmp->next;
 		next = next->next;

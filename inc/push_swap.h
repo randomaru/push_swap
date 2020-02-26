@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/23 17:46:30 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/26 17:43:56 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,10 @@ int						r_rotate(t_num **head, t_num **tail);
 int						rr_reverse(t_num **head, t_num **tail);
 int						push(char c, t_args **storage);
 void					print_stacks(t_num *head_a, t_num *head_b);
-//void					set_rank(t_args **storage);
-//int						sort_by_rank(t_args **storage);
-//int						set_depth(t_args **storage, int depth);
 int		is_sorted_checker(t_num *head);
-
+/*void					set_rank(t_args **storage);
+int						sort_by_rank(t_args **storage);
+int						set_depth(t_args **storage, int depth);*/
 /*int		is_sorted_stack_a(t_args *storage);
 int		is_sorted_first_three(t_args *storage);
 void					sort_by_depth(t_args **storage, int step_width);
@@ -92,6 +91,9 @@ void	set_part(t_args **storage);
 void	sort_by_part(t_args **storage);
 int 	stack_b_division(t_args **storage);
 int		find_min_stack_b(t_args *storage);
+int    stack_b_op(t_args **storage);
+int    sort_head_a(t_args **storage);
+
 
 
 #endif
