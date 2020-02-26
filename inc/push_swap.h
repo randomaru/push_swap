@@ -93,6 +93,7 @@ int 	stack_b_division(t_args **storage);
 int		find_min_stack_b(t_args *storage);
 int    stack_b_op(t_args **storage);
 int    sort_head_a(t_args **storage);
+int    find_len_of_rank(t_num *head, int rank);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:41:52 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/26 19:02:16 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:51:57 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,53 @@ int		stack_b_division(t_args **storage)
             r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
     }
      print_stacks((*storage)->head_a, (*storage)->head_b);
-     /*   if (!(*storage)->head_b)
-            sort_head_a(storage);*/
+        if (!(*storage)->head_b)
+            sort_head_a(storage);
     return (1);
  }
 
  int    sort_head_a(t_args **storage)
  {
+    int len;
+    t_num *curr, *next = NULL, *prev = NULL;
 
+    (*storage)->curr_rank = ((*storage)->head_a->rank);
+    len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
+    while (len < 4)
+//    if (len < 4)
+    {
+        while ((*storage)->head_a->rank == (*storage)->curr_rank)
+        {
+            curr = (*storage)->head_a;
+            if (curr->next->rank == (*storage)->curr_rank)
+                next = curr->next;
+            if (next && curr->index > next->index)
+                s_swap(&(*storage)->head_a);
+            if ((*storage)->tail_a->rank == (*storage)->curr_rank)
+                prev = (*storage)->tail_a;
+            if (prev && prev->index > curr->index)
+            {
+                rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
+                s_swap(&(*storage)->head_a);
+            }
+            r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+            next = NULL;
+        }
+        (*storage)->curr_rank += 1;
+        len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
+    }
+     print_stacks((*storage)->head_a, (*storage)->head_b);
+ }
+
+ int    find_len_of_rank(t_num *head, int rank)
+ {
+    int len;
+
+    len = 0;
+    while (head && head->rank == rank)
+    {
+        len++;
+        head = head->next;
+    }
+    return (len);
  }
