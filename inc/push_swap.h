@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/26 17:43:56 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/02/28 17:20:49 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,14 @@ int 	is_depth_sorted(t_args *storage, t_num *head);*/ //// от старого �
 
 void	set_part(t_args **storage);
 void	sort_by_part(t_args **storage);
-int 	stack_b_division(t_args **storage);
+int		stack_b_division(t_args **storage);
 int		find_min_stack_b(t_args *storage);
-int    stack_b_op(t_args **storage);
-int    sort_head_a(t_args **storage);
-int    find_len_of_rank(t_num *head, int rank);
+int		stack_b_op(t_args **storage);
+int		sort_head_a(t_args **storage);
+int		find_len_of_rank(t_num *head, int rank);
+int		sort_4_6(t_args **storage, int len);
+int 	is_tail_sorted(t_args *storage, int len, int rank);
+
 
 
 
