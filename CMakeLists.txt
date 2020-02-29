@@ -117,4 +117,4 @@ add_executable(push_swap
         src/not_mine_get_next_line.c
 #        src/sort.c
         src/sort_no_3.c
-        )
+        src/sort_help.c)
