@@ -85,7 +85,7 @@ int		main(int argc, char **argv)
 	/*stack_b_division(&storage);
 	print_stacks(storage->head_a, storage->head_b);
 */
-    stack_b_op(&storage);
+	stack_b_op(&storage, 0);
 	final_free(&storage->head_a);
 	return (0);
 }

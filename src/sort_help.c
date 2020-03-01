@@ -45,7 +45,7 @@ int	find_min_stack_b(t_args *storage)
 	t_num *tmp;
 	int min;
 
-	if (storage->head_b)
+	if (!storage->head_b)
 		return (0);
 	tmp = storage->head_b;
 	min = tmp->index;

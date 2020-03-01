@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:41:52 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/29 14:17:11 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/01 21:24:10 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ void	sort_by_part(t_args **storage)
 	}
 }
 
-int		stack_b_division(t_args **storage)
+int		stack_b_division(t_args **storage, int subrank)
 {
  	int		step_width;
  	int		min;
- 	int		rank;
  	t_num	*tmp;
 
  	if ((*storage)->stack_b_num < 4)
@@ -62,35 +61,40 @@ int		stack_b_division(t_args **storage)
  		step_width = (*storage)->stack_b_num / 2 + (*storage)->stack_b_num % 2;
  	min = find_min_stack_b(*storage);
 	tmp = (*storage)->head_b;
-	(*storage)->curr_rank += 1;
+	if (subrank == 0)
+		(*storage)->curr_rank += 1;
+	else
+		(*storage)->curr_subrank += 1;
 	int count = (*storage)->stack_b_num;
-	while (tmp && count--)
+//	while (tmp && count--)
+	while (count--)
 	{
-
+		tmp = (*storage)->head_b;
 		if (tmp->index >= min && tmp->index < min + step_width)
 		{
-            tmp = tmp->next;
+//            tmp = tmp->next;
 			r_rotate(&(*storage)->head_b, &(*storage)->tail_b);
 		}
 		else
 		{
 			tmp->rank = (*storage)->curr_rank;
+			tmp->sub_rank = (*storage)->curr_subrank;
 			push('a', storage);
             (*storage)->stack_b_num -= 1;
-			tmp = (*storage)->head_b;
+//			tmp = (*storage)->head_b;
 		}
 	}
 	return (1);
  }
 
 
- int    stack_b_op(t_args **storage)
+ int	stack_b_op(t_args **storage, int subrank)
  {
     int i = 0;
     t_num *curr;
     t_num *next = NULL;
 
-    while (stack_b_division(storage) == 1)
+    while (stack_b_division(storage, subrank) == 1)
     {
         print_stacks((*storage)->head_a, (*storage)->head_b);
 
@@ -106,7 +110,9 @@ int		stack_b_division(t_args **storage)
             if (next && curr < next)
                 s_swap(&(*storage)->head_b);
             push('a', storage);
-            if ((*storage)->head_a->next->rank == (*storage)->curr_rank && (*storage)->head_a->index > (*storage)->head_a->next->index)
+            if ((*storage)->head_a->next->rank == (*storage)->curr_rank
+            && (*storage)->head_a->next->sub_rank == (*storage)->curr_subrank
+            && (*storage)->head_a->index > (*storage)->head_a->next->index)
                 s_swap(&(*storage)->head_a);
         }
         print_stacks((*storage)->head_a, (*storage)->head_b);
@@ -119,6 +125,15 @@ int		stack_b_division(t_args **storage)
     return (1);
  }
 
+ void	push_rank_to_b(t_args **storage)
+ {
+	while ((*storage)->head_a->rank == (*storage)->curr_rank)
+	{
+		push('b', storage);
+		(*storage)->stack_b_num += 1;
+	}
+ }
+
 int    sort_head_a(t_args **storage)
 {
 	int len;
@@ -126,41 +141,50 @@ int    sort_head_a(t_args **storage)
 
 	(*storage)->curr_rank = ((*storage)->head_a->rank);
 	len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
-	if (len < 4)
+	while (len != 0)
 	{
-		while (len < 4)
+		if (len < 4)
 		{
-			while ((*storage)->head_a->rank == (*storage)->curr_rank)
+			while (len < 4)
 			{
-				curr = (*storage)->head_a;
-				if (curr->next->rank == (*storage)->curr_rank)
-					next = curr->next;
-				if (next && curr->index > next->index)
-					s_swap(&(*storage)->head_a);
-				if ((*storage)->tail_a->rank == (*storage)->curr_rank)
-					prev = (*storage)->tail_a;
-				if (prev && prev->index > curr->index)
+				while ((*storage)->head_a->rank == (*storage)->curr_rank)
 				{
-					rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
-					s_swap(&(*storage)->head_a);
+					curr = (*storage)->head_a;
+					if (curr->next->rank == (*storage)->curr_rank)
+						next = curr->next;
+					if (next && curr->index > next->index)
+						s_swap(&(*storage)->head_a);
+					if ((*storage)->tail_a->rank == (*storage)->curr_rank)
+						prev = (*storage)->tail_a;
+					if (prev && prev->index > curr->index)
+					{
+						rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
+						s_swap(&(*storage)->head_a);
+					}
+					r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+					next = NULL;
 				}
-				r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
-				next = NULL;
+				(*storage)->curr_rank -= 1;
+				len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
 			}
-			(*storage)->curr_rank -= 1;
-			len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
 		}
+		if (len > 3 && len < 7)
+		{
+			sort_4_6(storage, len);
+			(*storage)->curr_rank -= 1;
+		}
+		else
+		{
+			push_rank_to_b(storage);
+			print_stacks((*storage)->head_a, (*storage)->head_b);
+
+			stack_b_op(storage, 1);
+			print_stacks((*storage)->head_a, (*storage)->head_b);
+			break ;
+		}
+//		break ;
+		print_stacks((*storage)->head_a, (*storage)->head_b);
+		len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
 	}
-	if (len > 3 && len < 7)
-	{
-		sort_4_6(storage, len);
-	}
-	else
-	{
-		(*storage)->curr_rank -= 1;
-		/////push b curr_rank
-		stack_b_op(storage);
-	}
-	 print_stacks((*storage)->head_a, (*storage)->head_b);
 }
 
