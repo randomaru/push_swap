@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:53 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/01 20:33:18 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/02 19:51:07 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_num		*new_t_num(void)
 		return (NULL);
 	new->number = 0;
 	new->index = -1;
-	new->rank = 0;
+	new->rank = 1;
 	new->sub_rank = 0;
 	new->depth = 0;
 	new->next = NULL;
@@ -51,7 +51,8 @@ t_args 		*new_t_args(void)
 	new->tail_b = NULL;
 	new->stack_a_num = 0;
 	new->stack_b_num = 0;
-	new->curr_rank = -1;
+	new->curr_rank = 1;
+	new->main_rank = 1;
 	new->curr_subrank = 0;
 	return (new);
 }
@@ -108,7 +109,7 @@ int		save_numbers(char *argv, t_num **new, t_args **storage)
 		else
 			return (-1);
 	}
-	set_prev( &(*storage)->head_a);
+	set_prev(&(*storage)->head_a);
 	return (0);
 }
 

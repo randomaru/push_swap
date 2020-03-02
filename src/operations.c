@@ -182,6 +182,8 @@ int push(char c, t_args **storage)
 	{
 		from = &(*storage)->head_b;
 		to = &(*storage)->head_a;
+		(*storage)->stack_b_num -= 1;
+		(*storage)->stack_a_num += 1;
 	}
 	else
 	{
@@ -189,6 +191,8 @@ int push(char c, t_args **storage)
 		to = &(*storage)->head_b;
 		if ((*storage)->tail_b == NULL)
 			(*storage)->tail_b = (*storage)->head_a;
+		(*storage)->stack_a_num -= 1;
+		(*storage)->stack_b_num += 1;
 	}
 	if (*from == NULL)
 		return (-1);

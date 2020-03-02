@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/26 15:10:16 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/02 20:45:49 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ int		main(int argc, char **argv)
 	set_index(&storage->head_a);
 	print_stacks(storage->head_a, storage->head_b);
 
-	set_part(&storage);
-	print_stacks(storage->head_a, storage->head_b);
-	/*stack_b_division(&storage);
-	print_stacks(storage->head_a, storage->head_b);
-*/
-	stack_b_op(&storage, 0);
+
+	sort_main(&storage);
+
 	final_free(&storage->head_a);
 	return (0);
 }
+
+/// 24 14 17 11 1 20 15 10 16 4 22 3 2 23 21 18 6 8 19 12 25 5 26 7 9 13
+/// 10 7 8 9 3 5 1 6 2 4

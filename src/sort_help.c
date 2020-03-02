@@ -6,11 +6,28 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:22:10 by tamarant          #+#    #+#             */
-/*   Updated: 2020/02/29 14:07:07 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/02 19:15:26 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int 	is_stack_a_sorted(t_args *storage)
+{
+	t_num	*head;
+
+	if (storage->head_b)
+		return (0);
+	if (!(head = storage->head_a))
+		return (0);
+	while (head)
+	{
+		if (head->next && head->index > head->next->index)
+			return (0);
+		head = head->next;
+	}
+	return (1);
+}
 
 int 	is_tail_sorted(t_args *storage, int len, int rank)
 {
@@ -40,7 +57,7 @@ int		find_len_of_rank(t_num *head, int rank)
 	return (len);
 }
 
-int	find_min_stack_b(t_args *storage)
+int		find_min_stack_b(t_args *storage)
 {
 	t_num *tmp;
 	int min;
@@ -58,7 +75,7 @@ int	find_min_stack_b(t_args *storage)
 	return (min);
 }
 
-int    find_min_stack_a(t_args *storage, int rank)
+int		find_min_stack_a(t_args *storage, int rank)
 {
 	t_num   *head;
 	int     min;

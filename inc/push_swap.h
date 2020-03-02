@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/01 20:33:18 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/02 20:53:53 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,33 +36,13 @@
 		t_num 			*tail_a;
 		t_num 			*tail_b;
 
+		int 			main_rank;
 		int				curr_rank;
 		int				curr_subrank;
 		int 			stack_a_num;
 		int 			stack_b_num;
 
 	}					t_args;
-
-/*typedef struct		s_args
-{
-	t_num 			*head_a;
-	t_num 			*head_b;
-	t_num 			*tail_a;
-	t_num 			*tail_b;
-
-	int				first;
-	int 			stack_a_num;
-	int 			stack_b_num;
-	int 			max_index_stack_a;
-	int 			min_index_stack_a;
-	int				is_sort;
-	int				step_width;
-	int 			third_step_width;
-	int 			curr_rank;
-	int 			curr_subrank;
-	int 			curr_depth;
-	int				sorted_subrank;
-}					t_args;*/
 
 void 					final_free(t_num **head);
 t_num					*new_t_num(void);
@@ -74,29 +54,18 @@ int						r_rotate(t_num **head, t_num **tail);
 int						rr_reverse(t_num **head, t_num **tail);
 int						push(char c, t_args **storage);
 void					print_stacks(t_num *head_a, t_num *head_b);
-int		is_sorted_checker(t_num *head);
-/*void					set_rank(t_args **storage);
-int						sort_by_rank(t_args **storage);
-int						set_depth(t_args **storage, int depth);*/
-/*int		is_sorted_stack_a(t_args *storage);
-int		is_sorted_first_three(t_args *storage);
-void					sort_by_depth(t_args **storage, int step_width);
-
-void	find_max_min(t_args **storage);
-int 	sort_third(t_args **storage);
-int		sort_up_b(t_args **storage);
-int 	sort_third_down(t_args **storage, int depth, int sub_rank);
-int 	is_depth_sorted(t_args *storage, t_num *head);*/ //// от старого алгоритма
-
-void	set_part(t_args **storage);
-void	sort_by_part(t_args **storage);
-int stack_b_division(t_args **storage, int subrank);
+int		stack_b_division(t_args **storage);
+int stack_a_division(t_args **storage, int step);
 int		find_min_stack_b(t_args *storage);
-int stack_b_op(t_args **storage, int subrank);
+int		find_min_stack_a(t_args *storage, int rank);
+int		small_sort(t_args **storage, int subrank);
 int		sort_head_a(t_args **storage);
 int		find_len_of_rank(t_num *head, int rank);
 int		sort_4_6(t_args **storage, int len);
 int 	is_tail_sorted(t_args *storage, int len, int rank);
+int 	is_stack_a_sorted(t_args *storage);
+int		sort_main(t_args **storage);
+
 
 
 

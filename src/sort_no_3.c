@@ -6,132 +6,109 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:41:52 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/01 21:24:10 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/02 22:01:00 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	set_part(t_args **storage)
+int		stack_a_division(t_args **storage, int step)
 {
-	int step_width;
-	t_num *tmp;
+	int		step_width;
+	int 	min;
+	int 	len;
+	t_num	*tmp;
 
-	tmp = (*storage)->head_a;
-	step_width = (*storage)->stack_a_num / 2;
-	while (tmp)
+	min = find_min_stack_a(*storage, (*storage)->curr_rank);
+	len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
+	step_width = len / 2;
+	(*storage)->curr_rank += 1;
+	if (step == 1)
 	{
-		if (tmp->index >= 1 && tmp->index < 1 + step_width)
-			tmp->rank = 2;
-		else
-			tmp->rank = 1;
-		tmp = tmp->next;
-	}
- 	sort_by_part(storage);
- 	(*storage)->curr_rank = 2;
-}
-
-void	sort_by_part(t_args **storage)
-{
-	int 	count;
-
-	count = (*storage)->stack_a_num;
-	while (count--)
-	{
-		if ((*storage)->head_a->rank == 1)
-			r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
-		else if ((*storage)->head_a->rank == 2)
+		while (len--)
 		{
-			push('b', storage);
-			(*storage)->stack_a_num -= 1;
-			(*storage)->stack_b_num += 1;
+			tmp = (*storage)->head_a;
+			if (tmp->index >= min && tmp->index < min + step_width)
+			{
+				tmp->rank = (*storage)->curr_rank;
+				push('b', storage);
+			}
+			else
+				r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+
 		}
 	}
+	else
+	{
+		while (len--)
+		{
+			push('b', storage);
+			/*tmp = (*storage)->head_a;
+			if (tmp->index >= min && tmp->index < min + step_width)
+			{
+				tmp->rank = (*storage)->curr_rank;
+				push('b', storage);
+			}
+			else
+				r_rotate(&(*storage)->head_a, &(*storage)->tail_a);*/
+
+		}
+	}
+	return (1);
 }
 
-int		stack_b_division(t_args **storage, int subrank)
+int		stack_b_division(t_args **storage)
 {
  	int		step_width;
  	int		min;
+	int		count;
  	t_num	*tmp;
 
- 	if ((*storage)->stack_b_num < 4)
+ 	if (!(*storage)->head_b || (*storage)->stack_b_num < 4)
  		return (0);
- 	if ((*storage)->stack_b_num > 3)
- 		step_width = (*storage)->stack_b_num / 2 + (*storage)->stack_b_num % 2;
+ 	step_width = (*storage)->stack_b_num / 2; // + (*storage)->stack_b_num % 2;
  	min = find_min_stack_b(*storage);
-	tmp = (*storage)->head_b;
-	if (subrank == 0)
-		(*storage)->curr_rank += 1;
-	else
-		(*storage)->curr_subrank += 1;
-	int count = (*storage)->stack_b_num;
-//	while (tmp && count--)
+ 	(*storage)->curr_rank += 1;
+	count = (*storage)->stack_b_num;
 	while (count--)
 	{
 		tmp = (*storage)->head_b;
 		if (tmp->index >= min && tmp->index < min + step_width)
 		{
-//            tmp = tmp->next;
+			tmp->rank = (*storage)->curr_rank;
 			r_rotate(&(*storage)->head_b, &(*storage)->tail_b);
 		}
 		else
-		{
-			tmp->rank = (*storage)->curr_rank;
-			tmp->sub_rank = (*storage)->curr_subrank;
 			push('a', storage);
-            (*storage)->stack_b_num -= 1;
-//			tmp = (*storage)->head_b;
-		}
 	}
 	return (1);
  }
 
 
- int	stack_b_op(t_args **storage, int subrank)
+ int	small_sort(t_args **storage, int subrank)
  {
-    int i = 0;
     t_num *curr;
     t_num *next = NULL;
 
-    while (stack_b_division(storage, subrank) == 1)
-    {
-        print_stacks((*storage)->head_a, (*storage)->head_b);
-
-    }
-    if ((*storage)->head_b && (*storage)->stack_b_num < 4)
-    {
-        (*storage)->curr_rank = (*storage)->head_b->rank;
-        while ((*storage)->head_b)
-        {
-            curr = (*storage)->head_b;
-            if (curr->next)
-                next = curr->next;
-            if (next && curr < next)
-                s_swap(&(*storage)->head_b);
-            push('a', storage);
-            if ((*storage)->head_a->next->rank == (*storage)->curr_rank
-            && (*storage)->head_a->next->sub_rank == (*storage)->curr_subrank
-            && (*storage)->head_a->index > (*storage)->head_a->next->index)
-                s_swap(&(*storage)->head_a);
-        }
-        print_stacks((*storage)->head_a, (*storage)->head_b);
-        while ((*storage)->head_a->rank == (*storage)->curr_rank)
-            r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
-    }
-     print_stacks((*storage)->head_a, (*storage)->head_b);
-        if (!(*storage)->head_b)
-            sort_head_a(storage);
-    return (1);
- }
-
- void	push_rank_to_b(t_args **storage)
- {
-	while ((*storage)->head_a->rank == (*storage)->curr_rank)
+	if ((*storage)->head_b && (*storage)->stack_b_num < 4)
 	{
-		push('b', storage);
-		(*storage)->stack_b_num += 1;
+		(*storage)->curr_rank = (*storage)->head_b->rank;
+		while ((*storage)->head_b)
+		{
+			curr = (*storage)->head_b;
+			if (curr->next)
+				next = curr->next;
+			if (next && curr < next)
+				s_swap(&(*storage)->head_b);
+			push('a', storage);
+			if ((*storage)->head_a->next->rank == (*storage)->curr_rank
+			&& (*storage)->head_a->index > (*storage)->head_a->next->index)
+				s_swap(&(*storage)->head_a);
+		}
+		while ((*storage)->head_a->rank == (*storage)->curr_rank)
+			r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
 	}
+    return (1);
  }
 
 int    sort_head_a(t_args **storage)
@@ -141,50 +118,48 @@ int    sort_head_a(t_args **storage)
 
 	(*storage)->curr_rank = ((*storage)->head_a->rank);
 	len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
-	while (len != 0)
+	if (len < 4)
 	{
-		if (len < 4)
+		while (len < 4)
 		{
-			while (len < 4)
+			while ((*storage)->head_a->rank == (*storage)->curr_rank)
 			{
-				while ((*storage)->head_a->rank == (*storage)->curr_rank)
-				{
-					curr = (*storage)->head_a;
-					if (curr->next->rank == (*storage)->curr_rank)
-						next = curr->next;
-					if (next && curr->index > next->index)
-						s_swap(&(*storage)->head_a);
-					if ((*storage)->tail_a->rank == (*storage)->curr_rank)
-						prev = (*storage)->tail_a;
-					if (prev && prev->index > curr->index)
-					{
-						rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
-						s_swap(&(*storage)->head_a);
-					}
-					r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
-					next = NULL;
-				}
-				(*storage)->curr_rank -= 1;
-				len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
+				curr = (*storage)->head_a;
+				if (curr->next && curr->next->rank == (*storage)->curr_rank)
+					next = curr->next;
+				if (next && curr->index > next->index)
+					s_swap(&(*storage)->head_a);
+				r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+				next = NULL;
 			}
-		}
-		if (len > 3 && len < 7)
-		{
-			sort_4_6(storage, len);
 			(*storage)->curr_rank -= 1;
+			len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
 		}
-		else
-		{
-			push_rank_to_b(storage);
-			print_stacks((*storage)->head_a, (*storage)->head_b);
-
-			stack_b_op(storage, 1);
-			print_stacks((*storage)->head_a, (*storage)->head_b);
-			break ;
-		}
-//		break ;
-		print_stacks((*storage)->head_a, (*storage)->head_b);
-		len = find_len_of_rank((*storage)->head_a, (*storage)->curr_rank);
 	}
+	if (len > 3 && len < 7)
+	{
+		sort_4_6(storage, len);
+		(*storage)->curr_rank -= 1;
+	}
+	else
+		stack_a_division(storage, 0);
+	print_stacks((*storage)->head_a, (*storage)->head_b);
+	return (1);
 }
 
+int		sort_main(t_args **storage)
+{
+	while (!(is_stack_a_sorted(*storage)))
+	{
+		stack_a_division(storage, 1);
+		while ((*storage)->head_b)
+		{
+			if (!(stack_b_division(storage)))
+				small_sort(storage, 0);
+			print_stacks((*storage)->head_a, (*storage)->head_b);
+		}
+		sort_head_a(storage);
+		print_stacks((*storage)->head_a, (*storage)->head_b);
+	}
+	return (1);
+}
