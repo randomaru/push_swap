@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:22:10 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/02 19:15:26 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/03 20:57:19 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		sort_4_6(t_args **storage, int len)
 
 	step_width = len / 2;
 	min = find_min_stack_a(*storage, (*storage)->curr_rank);
-	while (len-- && (*storage)->head_a->rank == (*storage)->curr_rank) ///// можно сортировать пока раскидываешь
+	while (len--) //&& (*storage)->head_a->rank == (*storage)->curr_rank) ///// можно сортировать пока раскидываешь
 	{
 		curr = (*storage)->head_a;
 		if (curr->index >= min && curr->index < min + step_width)
@@ -111,7 +111,8 @@ int		sort_4_6(t_args **storage, int len)
 		else
 			push('b', storage);
 	}
-	if (!(is_tail_sorted(*storage, step_width, (*storage)->curr_rank)))
+	print_stacks((*storage)->head_a, (*storage)->head_b); ////
+	if (!(is_tail_sorted(*storage, step_width, (*storage)->curr_rank))) /// rank == 1??
 	{
 		if (step_width == 2)
 		{
@@ -127,13 +128,17 @@ int		sort_4_6(t_args **storage, int len)
 			while ((*storage)->tail_a->rank == (*storage)->curr_rank) //// перепиши это нормально
 			{
 				rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
-				if ((*storage)->head_a > (*storage)->head_a->next)
+				if ((*storage)->head_a->index > (*storage)->head_a->next->index)
+				{
 					s_swap(&(*storage)->head_a);
+					print_stacks((*storage)->head_a, (*storage)->head_b); ////
+				}
 			}
-			while (step_width--)
+			print_stacks((*storage)->head_a, (*storage)->head_b); ////
+			while (step_width--) ////////////////AAAAAAAAAAAAAAAAAAAA
 			{
 				r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
-				if ((*storage)->head_a > (*storage)->head_a->next)
+				if ((*storage)->head_a->index > (*storage)->head_a->next->index)
 					s_swap(&(*storage)->head_a);
 			}
 		}
@@ -146,6 +151,7 @@ int		sort_4_6(t_args **storage, int len)
 		if ((*storage)->head_a->index > (*storage)->head_a->next->index)
 			s_swap(&(*storage)->head_a);
 	}
+	print_stacks((*storage)->head_a, (*storage)->head_b); //////
 	while ((*storage)->head_a->rank == (*storage)->curr_rank)
 	{
 		next = NULL;

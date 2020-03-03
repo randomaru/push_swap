@@ -52,8 +52,6 @@ t_args 		*new_t_args(void)
 	new->stack_a_num = 0;
 	new->stack_b_num = 0;
 	new->curr_rank = 1;
-	new->main_rank = 1;
-	new->curr_subrank = 0;
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:41:52 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/02 22:01:00 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/03 20:14:20 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		stack_a_division(t_args **storage, int step)
 	int		step_width;
 	int 	min;
 	int 	len;
+	int		len_tmp;
 	t_num	*tmp;
 
 	min = find_min_stack_a(*storage, (*storage)->curr_rank);
@@ -41,18 +42,7 @@ int		stack_a_division(t_args **storage, int step)
 	else
 	{
 		while (len--)
-		{
 			push('b', storage);
-			/*tmp = (*storage)->head_a;
-			if (tmp->index >= min && tmp->index < min + step_width)
-			{
-				tmp->rank = (*storage)->curr_rank;
-				push('b', storage);
-			}
-			else
-				r_rotate(&(*storage)->head_a, &(*storage)->tail_a);*/
-
-		}
 	}
 	return (1);
 }
@@ -107,6 +97,7 @@ int		stack_b_division(t_args **storage)
 		}
 		while ((*storage)->head_a->rank == (*storage)->curr_rank)
 			r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+
 	}
     return (1);
  }
@@ -143,19 +134,23 @@ int    sort_head_a(t_args **storage)
 	}
 	else
 		stack_a_division(storage, 0);
-	print_stacks((*storage)->head_a, (*storage)->head_b);
 	return (1);
 }
 
 int		sort_main(t_args **storage)
 {
+	stack_a_division(storage, 1);
+	print_stacks((*storage)->head_a, (*storage)->head_b);
 	while (!(is_stack_a_sorted(*storage)))
 	{
-		stack_a_division(storage, 1);
 		while ((*storage)->head_b)
 		{
 			if (!(stack_b_division(storage)))
+			{
+				print_stacks((*storage)->head_a, (*storage)->head_b);
 				small_sort(storage, 0);
+				print_stacks((*storage)->head_a, (*storage)->head_b);
+			}
 			print_stacks((*storage)->head_a, (*storage)->head_b);
 		}
 		sort_head_a(storage);

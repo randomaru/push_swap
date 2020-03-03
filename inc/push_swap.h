@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/02 20:53:53 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/03 18:14:58 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@
 		int 			number;
 		int				index;
 		int 			rank;
-		int 			sub_rank;
-		int				depth;
+//		int 			sub_rank;
+//		int				depth;
 		struct s_number	*next;
 		struct s_number	*prev;
-
 	}					t_num;
 
 	typedef struct		s_args
@@ -35,13 +34,9 @@
 		t_num 			*head_b;
 		t_num 			*tail_a;
 		t_num 			*tail_b;
-
-		int 			main_rank;
 		int				curr_rank;
-		int				curr_subrank;
 		int 			stack_a_num;
 		int 			stack_b_num;
-
 	}					t_args;
 
 void 					final_free(t_num **head);
@@ -55,7 +50,7 @@ int						rr_reverse(t_num **head, t_num **tail);
 int						push(char c, t_args **storage);
 void					print_stacks(t_num *head_a, t_num *head_b);
 int		stack_b_division(t_args **storage);
-int stack_a_division(t_args **storage, int step);
+int		stack_a_division(t_args **storage, int step);
 int		find_min_stack_b(t_args *storage);
 int		find_min_stack_a(t_args *storage, int rank);
 int		small_sort(t_args **storage, int subrank);
