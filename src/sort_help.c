@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:22:10 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/03 20:57:19 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/06 17:18:15 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ int 	is_tail_sorted(t_args *storage, int len, int rank)
 {
 	t_num *tail;
 
-	if (!(tail = storage->tail_a))
+ 	if (!(tail = storage->tail_a))
 		return (-1);
 	while (len--)
 	{
 		if (tail->rank == rank && tail->prev->rank == rank)
 			if (tail->index < tail->prev->index)
 				return (0);
+		tail = tail->prev;
 	}
 	return (1);
 }
@@ -103,7 +104,7 @@ int		sort_4_6(t_args **storage, int len)
 
 	step_width = len / 2;
 	min = find_min_stack_a(*storage, (*storage)->curr_rank);
-	while (len--) //&& (*storage)->head_a->rank == (*storage)->curr_rank) ///// можно сортировать пока раскидываешь
+	while (len--)
 	{
 		curr = (*storage)->head_a;
 		if (curr->index >= min && curr->index < min + step_width)
@@ -138,7 +139,8 @@ int		sort_4_6(t_args **storage, int len)
 			while (step_width--) ////////////////AAAAAAAAAAAAAAAAAAAA
 			{
 				r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
-				if ((*storage)->head_a->index > (*storage)->head_a->next->index)
+				if ((*storage)->head_a->next && (*storage)->head_a->next->rank == (*storage)->curr_rank
+				&& (*storage)->head_a->index > (*storage)->head_a->next->index)
 					s_swap(&(*storage)->head_a);
 			}
 		}
@@ -156,7 +158,7 @@ int		sort_4_6(t_args **storage, int len)
 	{
 		next = NULL;
 		curr = (*storage)->head_a;
-		if (curr->next->rank == (*storage)->curr_rank)
+		if (curr->next && curr->next->rank == (*storage)->curr_rank)
 			next = curr->next;
 		if (next && curr->index > next->index)
 			s_swap(&(*storage)->head_a);

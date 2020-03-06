@@ -6,43 +6,12 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/02 20:45:49 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/06 17:11:27 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 #include <stdio.h>
-
-/*void	print_stacks(t_num *head_a, t_num *head_b)
-{
-	t_num *tmp_a;
-	t_num *tmp_b;
-
-	tmp_a = head_a;
-	tmp_b = head_b;
-	ft_printf("\n");
-	while (tmp_a || tmp_b)
-	{
-		if (tmp_b == NULL && tmp_a)
-		{
-			ft_printf("%7i | %7c\n", tmp_a->number, ' ');
-			tmp_a = tmp_a->next;
-		}
-		else if (tmp_a == NULL && tmp_b)
-		{
-			ft_printf("%7c | %7i\n", ' ', tmp_b->number);
-			tmp_b = tmp_b->next;
-		}
-		else if (tmp_a && tmp_b)
-		{
-			ft_printf("%7i | %7i\n", tmp_a->number, tmp_b->number);
-			tmp_a = tmp_a->next;
-			tmp_b = tmp_b->next;
-		}
-
-	}
-	ft_printf("%7s | %7s\n", "stack A", "stack B");
-}*/ //// old print_stacks
 
 int		main(int argc, char **argv)
 {
@@ -88,4 +57,27 @@ int		main(int argc, char **argv)
 }
 
 /// 24 14 17 11 1 20 15 10 16 4 22 3 2 23 21 18 6 8 19 12 25 5 26 7 9 13
+/// 14 17 11 1 15 10 16 4 3 2 18 6 8 12 5 7 9 13 здесь поймали первую сегу
 /// 10 7 8 9 3 5 1 6 2 4
+/// 11 1 10 4 3 2 6 8 12 5 7 9   "8 7 9" не отсортировал и зациклился
+
+
+/*
+	1 r 3 |     13 r 1
+	2 r 3 |      9 r 1
+	3 r 3 |      7 r 1
+	4 r 2 |     12 r 1
+	5 r 2 |      8 r 1
+	6 r 2 |     10 r 1
+		  |     11 r 1
+  stack A |    stack B
+
+	11 r 1 |
+	10 r 1 |
+	12 r 1 |
+	13 r 1 |
+	 1 r 3 |
+	 9 r 3 |
+	 7 r 3 |
+	 8 r 3 |
+   stack A |    stack B*/

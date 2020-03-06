@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/03 20:48:07 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/06 18:24:58 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,26 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 		if (tmp_a && !tmp_b)
 
 		{
-			ft_printf("%7i r%i d%i sr%i | %16c\n", tmp_a->number, tmp_a->rank, tmp_a->depth, tmp_a->sub_rank, ' ');
+			ft_printf("%6i r%2i | %8c\n", tmp_a->number, tmp_a->rank, ' ');
 			tmp_a = tmp_a->next;
 		}
 		else if (tmp_b && !tmp_a)
 		{
-			ft_printf("%17c | %7i r%i d%i sr%i\n", ' ', tmp_b->number, tmp_b->rank, tmp_b->depth, tmp_b->sub_rank);
+			ft_printf("%10c | %6i r%2i \n", ' ', tmp_b->number, tmp_b->rank);
 
 			tmp_b = tmp_b->next;
 		}
 		else if (tmp_a && tmp_b)
 		{
-			ft_printf("%7i r%i d%i sr%i | %7i r%i d%i sr%i \n",
-					tmp_a->number, tmp_a->rank, tmp_a->depth, tmp_a->sub_rank,
-					tmp_b->number, tmp_b->rank, tmp_b->depth, tmp_b->sub_rank);
+			ft_printf("%6i r%2i | %6i r%2i \n",
+					tmp_a->number, tmp_a->rank,
+					tmp_b->number, tmp_b->rank);
 			tmp_a = tmp_a->next;
 			tmp_b = tmp_b->next;
 		}
 
 	}
-	ft_printf("%17s | %17s\n", "stack A", "stack B");
+	ft_printf("%10s | %10s\n", "stack A", "stack B");
 }
 
 int		s_swap(t_num **head)
@@ -108,22 +108,32 @@ int		push(char c, t_args **storage)
 	t_num *curr;
 	t_num *tmp_next;
 
-	if (c == 'a')
+	if (c == 'a' && (*storage)->head_b)
 	{
 		from = &(*storage)->head_b;
 		to = &(*storage)->head_a;
 		(*storage)->stack_b_num -= 1;
 		(*storage)->stack_a_num += 1;
 	}
-	else
+	else if (c == 'b' && (*storage)->head_a)
 	{
 		from = &(*storage)->head_a;
 		to = &(*storage)->head_b;
 		if ((*storage)->tail_b == NULL)
-			(*storage)->tail_b = (*storage)->head_a;
+		{
+			if (to)
+			{
+				tmp_next = *to;
+				while (tmp_next)
+					tmp_next = tmp_next->next;
+				(*storage)->tail_b = tmp_next;
+			}
+		}
 		(*storage)->stack_a_num -= 1;
 		(*storage)->stack_b_num += 1;
 	}
+	else
+		return (-1);
 	if (*from == NULL)
 		return (-1);
 	tmp_next = NULL;
@@ -138,6 +148,7 @@ int		push(char c, t_args **storage)
 		(*to)->prev = NULL;
 		(*to)->next = NULL;
 		*from = tmp_next;
+		(*storage)->tail_b = *to;
 	}
 	else
 	{
@@ -146,14 +157,8 @@ int		push(char c, t_args **storage)
 		curr->prev = NULL;
 		curr->next = *to;
 		(*to)->prev = curr;
-//		*to = curr;
 		*to = (*to)->prev;
 		*from = tmp_next;
-/*		*from = (*from)->next;
-		(*from)->prev = NULL;
-		(*to)->prev = curr;
-		curr->next = *to;
-		*to = (*to)->prev;*/
 	}
 	return (1);
 }

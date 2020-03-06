@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:41:52 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/03 20:14:20 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/06 17:46:41 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		stack_a_division(t_args **storage, int step)
 	int		step_width;
 	int 	min;
 	int 	len;
-	int		len_tmp;
 	t_num	*tmp;
 
 	min = find_min_stack_a(*storage, (*storage)->curr_rank);
@@ -56,20 +55,31 @@ int		stack_b_division(t_args **storage)
 
  	if (!(*storage)->head_b || (*storage)->stack_b_num < 4)
  		return (0);
- 	step_width = (*storage)->stack_b_num / 2; // + (*storage)->stack_b_num % 2;
+ 	step_width = (*storage)->stack_b_num / 2;
  	min = find_min_stack_b(*storage);
  	(*storage)->curr_rank += 1;
 	count = (*storage)->stack_b_num;
 	while (count--)
 	{
-		tmp = (*storage)->head_b;
+		if (((*storage)->head_b) && (*storage)->head_b->index >= min && (*storage)->head_b->index < min + step_width)
+		{
+			(*storage)->head_b->rank = (*storage)->curr_rank;
+			r_rotate(&(*storage)->head_b, &(*storage)->tail_b);
+		}
+		else
+		{
+			push('a', storage);
+			print_stacks((*storage)->head_a, (*storage)->head_b);
+
+		}
+	/*	tmp = (*storage)->head_b;
 		if (tmp->index >= min && tmp->index < min + step_width)
 		{
 			tmp->rank = (*storage)->curr_rank;
 			r_rotate(&(*storage)->head_b, &(*storage)->tail_b);
 		}
 		else
-			push('a', storage);
+			push('a', storage);*/
 	}
 	return (1);
  }
