@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 13:22:10 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/06 17:18:15 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/06 19:13:24 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,50 +108,50 @@ int		sort_4_6(t_args **storage, int len)
 	{
 		curr = (*storage)->head_a;
 		if (curr->index >= min && curr->index < min + step_width)
-			r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+			r_rotate(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 		else
-			push('b', storage);
+			push('b', storage, &(*storage)->counter);
 	}
 	print_stacks((*storage)->head_a, (*storage)->head_b); ////
 	if (!(is_tail_sorted(*storage, step_width, (*storage)->curr_rank))) /// rank == 1??
 	{
 		if (step_width == 2)
 		{
-			rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
-			rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
-			s_swap(&(*storage)->head_a);
-			r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
-			r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+			rr_reverse(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
+			rr_reverse(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
+			s_swap(&(*storage)->head_a, &(*storage)->counter);
+			r_rotate(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
+			r_rotate(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 		}
 		if (step_width == 3)
 		{
-			rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
+			rr_reverse(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 			while ((*storage)->tail_a->rank == (*storage)->curr_rank) //// перепиши это нормально
 			{
-				rr_reverse(&(*storage)->head_a, &(*storage)->tail_a);
+				rr_reverse(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 				if ((*storage)->head_a->index > (*storage)->head_a->next->index)
 				{
-					s_swap(&(*storage)->head_a);
+					s_swap(&(*storage)->head_a, &(*storage)->counter);
 					print_stacks((*storage)->head_a, (*storage)->head_b); ////
 				}
 			}
 			print_stacks((*storage)->head_a, (*storage)->head_b); ////
 			while (step_width--) ////////////////AAAAAAAAAAAAAAAAAAAA
 			{
-				r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+				r_rotate(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 				if ((*storage)->head_a->next && (*storage)->head_a->next->rank == (*storage)->curr_rank
 				&& (*storage)->head_a->index > (*storage)->head_a->next->index)
-					s_swap(&(*storage)->head_a);
+					s_swap(&(*storage)->head_a, &(*storage)->counter);
 			}
 		}
 	}
 	if ((*storage)->head_b)
-		push('a', storage);
+		push('a', storage, &(*storage)->counter);
 	while ((*storage)->head_b)
 	{
-		push('a', storage);
+		push('a', storage, &(*storage)->counter);
 		if ((*storage)->head_a->index > (*storage)->head_a->next->index)
-			s_swap(&(*storage)->head_a);
+			s_swap(&(*storage)->head_a, &(*storage)->counter);
 	}
 	print_stacks((*storage)->head_a, (*storage)->head_b); //////
 	while ((*storage)->head_a->rank == (*storage)->curr_rank)
@@ -161,7 +161,7 @@ int		sort_4_6(t_args **storage, int len)
 		if (curr->next && curr->next->rank == (*storage)->curr_rank)
 			next = curr->next;
 		if (next && curr->index > next->index)
-			s_swap(&(*storage)->head_a);
-		r_rotate(&(*storage)->head_a, &(*storage)->tail_a);
+			s_swap(&(*storage)->head_a, &(*storage)->counter);
+		r_rotate(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 	}
 }

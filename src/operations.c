@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/06 18:24:58 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/06 18:27:56 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 	ft_printf("%10s | %10s\n", "stack A", "stack B");
 }
 
-int		s_swap(t_num **head)
+int s_swap(t_num **head, int *counter)
 {
 	t_num	*tmp;
 
@@ -61,12 +61,13 @@ int		s_swap(t_num **head)
 			tmp->next->prev = tmp; ///// ошибка
 		tmp->prev = (*head);
 		(*head)->prev = NULL;
+		*counter += 1;
 		return (1);
 	}
 	return (-1);
 }
 
-int		r_rotate(t_num **head, t_num **tail)
+int r_rotate(t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
 
@@ -79,12 +80,13 @@ int		r_rotate(t_num **head, t_num **tail)
 		tmp->prev = *tail;
 		tmp->next = NULL;
 		*tail = tmp;
+		*counter += 1;
 		return (1);
 	}
 	return (-1);
 }
 
-int		rr_reverse(t_num **head, t_num **tail)
+int rr_reverse(t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
 
@@ -98,10 +100,11 @@ int		rr_reverse(t_num **head, t_num **tail)
 		tmp->next = *head;
 		*head = tmp;
 	}
+	*counter += 1;
 	return (1);
 }
 
-int		push(char c, t_args **storage)
+int push(char c, t_args **storage, int *counter)
 {
 	t_num **from;
 	t_num **to;
@@ -160,5 +163,6 @@ int		push(char c, t_args **storage)
 		*to = (*to)->prev;
 		*from = tmp_next;
 	}
+	*counter += 1;
 	return (1);
 }

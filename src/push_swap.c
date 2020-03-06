@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/06 17:11:27 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/06 17:23:56 by tamarant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int		main(int argc, char **argv)
 
 	sort_main(&storage);
 
+	ft_printf("sum of op: %i\n", storage->counter);
+
 	final_free(&storage->head_a);
+
 	return (0);
 }
 

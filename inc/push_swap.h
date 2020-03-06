@@ -37,6 +37,7 @@
 		int				curr_rank;
 		int 			stack_a_num;
 		int 			stack_b_num;
+		int 			counter;
 	}					t_args;
 
 void 					final_free(t_num **head);
@@ -44,10 +45,10 @@ t_num					*new_t_num(void);
 t_args 					*new_t_args(void);
 void					set_index(t_num **head);
 int						save_numbers(char *argv, t_num **new, t_args **storage);
-int						s_swap(t_num **head);
-int						r_rotate(t_num **head, t_num **tail);
-int						rr_reverse(t_num **head, t_num **tail);
-int						push(char c, t_args **storage);
+int s_swap(t_num **head, int *counter);
+int r_rotate(t_num **head, t_num **tail, int *counter);
+int rr_reverse(t_num **head, t_num **tail, int *counter);
+int push(char c, t_args **storage, int *counter);
 void					print_stacks(t_num *head_a, t_num *head_b);
 int		stack_b_division(t_args **storage);
 int		stack_a_division(t_args **storage, int step);
