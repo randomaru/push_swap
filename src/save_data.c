@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:53 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/06 16:13:57 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/12 23:50:54 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		save_numbers(char *argv, t_num **new, t_args **storage)
 	{
 		if (*argv == ' ')
 			argv += 1;
-		else if (*argv >= '0' && *argv <= '9')
+		else if ((*argv >= '0' && *argv <= '9') || *argv == '-')
 		{
 			if ((*storage)->head_a == NULL)
 				(*storage)->head_a = *new;
@@ -87,14 +87,13 @@ int		save_numbers(char *argv, t_num **new, t_args **storage)
 					return(-1);
 				*new = (*new)->next;
 			}
-			if (((*new)->number = ft_atoi(argv)) == -1)
-				return (-1);
+			(*new)->number = ft_atoi(argv); /////переполнение??
 			argv += number_len((*new)->number);
 			(*storage)->stack_a_num += 1;
 			while (*argv == ' ')
 			{
 				argv += 1;
-				if (*argv != ' ' && *argv != '\0' && (*argv < '0' || *argv > '9'))
+				if (*argv != ' ' && *argv != '\0' && (*argv < '0' || *argv > '9' ) && *argv != '-')
 					return (-1);
 			}
 			if (*argv == '\0')
@@ -110,13 +109,14 @@ int		save_numbers(char *argv, t_num **new, t_args **storage)
 	return (0);
 }
 
-void	set_index(t_num **head)
+int set_index(t_num **head)
 {
 	int		index;
 	int		min;
 	int 	num_amount;
 	t_num	*tmp;
 	t_num	*num_min;
+	int		changes;
 
 	num_amount = 0;
 	index = 1;
@@ -129,6 +129,7 @@ void	set_index(t_num **head)
 	}
 	while (index != num_amount + 1)
 	{
+		changes = 0;
 		tmp = *head;
 		if (tmp->index == -1)
 			min = tmp->number;
@@ -144,11 +145,16 @@ void	set_index(t_num **head)
 			{
 				min = tmp->number;
 				num_min = tmp;
+				changes = 1;
 			}
 			tmp = tmp->next;
+			if (changes && tmp && (min == tmp->number))
+				return (-1);
 		}
 		num_min->index = index;
 		index++;
 	}
+	return (1);
 }
 
+///// 2 1 2 3

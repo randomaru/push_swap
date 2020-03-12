@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/06 17:23:56 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:02:16 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int		main(int argc, char **argv)
 			argc--;
 		}
 	}
-	set_index(&storage->head_a);
+	if (set_index(&storage->head_a) == -1)
+	{
+		ft_printf("There is duplicates.");
+		return (0);
+	}
 	print_stacks(storage->head_a, storage->head_b);
 
 

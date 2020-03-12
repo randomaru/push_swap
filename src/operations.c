@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/06 18:27:56 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:19:12 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,27 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 	while (tmp_a || tmp_b)
 	{
 		if (tmp_a && !tmp_b)
-
 		{
-			ft_printf("%6i r%2i | %8c\n", tmp_a->number, tmp_a->rank, ' ');
+			ft_printf("%6i r%2i in%2i | %8c\n", tmp_a->number, tmp_a->rank, tmp_a->index, ' ');
 			tmp_a = tmp_a->next;
 		}
 		else if (tmp_b && !tmp_a)
 		{
-			ft_printf("%10c | %6i r%2i \n", ' ', tmp_b->number, tmp_b->rank);
+			ft_printf("%10c | %6i r%2i in%2i\n", ' ', tmp_b->number, tmp_b->rank, tmp_b->index);
 
 			tmp_b = tmp_b->next;
 		}
 		else if (tmp_a && tmp_b)
 		{
-			ft_printf("%6i r%2i | %6i r%2i \n",
-					tmp_a->number, tmp_a->rank,
-					tmp_b->number, tmp_b->rank);
+			ft_printf("%6i r%2i in%2i | %6i r%2i in%2i\n",
+					tmp_a->number, tmp_a->rank, tmp_a->index,
+					tmp_b->number, tmp_b->rank, tmp_b->index);
 			tmp_a = tmp_a->next;
 			tmp_b = tmp_b->next;
 		}
 
 	}
-	ft_printf("%10s | %10s\n", "stack A", "stack B");
+	ft_printf("%15s | %15s\n", "stack A", "stack B");
 }
 
 int s_swap(t_num **head, int *counter)

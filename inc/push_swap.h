@@ -43,7 +43,7 @@
 void 					final_free(t_num **head);
 t_num					*new_t_num(void);
 t_args 					*new_t_args(void);
-void					set_index(t_num **head);
+int set_index(t_num **head);
 int						save_numbers(char *argv, t_num **new, t_args **storage);
 int s_swap(t_num **head, int *counter);
 int r_rotate(t_num **head, t_num **tail, int *counter);
