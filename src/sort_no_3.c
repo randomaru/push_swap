@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 19:41:52 by tamarant          #+#    #+#             */
-/*   Updated: 2020/03/06 17:47:40 by tamarant         ###   ########.fr       */
+/*   Updated: 2020/03/12 23:59:32 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,13 @@ int		stack_a_division(t_args **storage, int step)
 	}
 	else
 	{
-		while (len--)
-			push('b', storage, &(*storage)->counter);
+//		if ((*storage)->head_a->rank != 1)
+//		{
+			while (len--) ///проверять количество элементов
+				push('b', storage, &(*storage)->counter);
+//		}
+//		else ///// написать
+
 	}
 	return (1);
 }
@@ -72,14 +77,6 @@ int		stack_b_division(t_args **storage)
 			print_stacks((*storage)->head_a, (*storage)->head_b);
 
 		}
-	/*	tmp = (*storage)->head_b;
-		if (tmp->index >= min && tmp->index < min + step_width)
-		{
-			tmp->rank = (*storage)->curr_rank;
-			r_rotate(&(*storage)->head_b, &(*storage)->tail_b);
-		}
-		else
-			push('a', storage);*/
 	}
 	return (1);
  }
@@ -163,6 +160,8 @@ int		sort_main(t_args **storage)
 			}
 			print_stacks((*storage)->head_a, (*storage)->head_b);
 		}
+//		if ((*storage)->curr_rank == 1)
+//			stack_a_division(storage, 1);
 		sort_head_a(storage);
 		print_stacks((*storage)->head_a, (*storage)->head_b);
 	}
