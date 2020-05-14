@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/10 22:14:58 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/13 22:08:36 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,16 @@ int		s_swap(t_num **head, int *counter)
 	return (-1);
 }
 
+int		ss_swap(t_args **storage)
+{
+	if (s_swap(&(*storage)->head_a, &(*storage)->counter) == -1)
+		return (-1);
+	if (s_swap(&(*storage)->head_b, &(*storage)->counter) == -1)
+		return (-1);
+	(*storage)->counter -= 1;
+	return (1);
+}
+
 int		r_rotate(t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
@@ -83,6 +93,17 @@ int		r_rotate(t_num **head, t_num **tail, int *counter)
 		return (1);
 	}
 	return (-1);
+}
+
+void 	rr_rotate(t_args **storage)
+{
+	if ((*storage)->head_a && (*storage)->head_b)
+	{
+		r_rotate(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
+		r_rotate(&(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
+		(*storage)->counter -= 1;
+	}
+
 }
 
 int		rr_reverse(t_num **head, t_num **tail, int *counter)
@@ -108,6 +129,7 @@ int		rrr_reverse(t_args **storage)
 	rr_reverse(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 	rr_reverse(&(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
 	(*storage)->counter -= 1;
+	return (1);
 }
 
 int		push(char c, t_args **storage, int *counter)

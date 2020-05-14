@@ -31,7 +31,6 @@ t_num		*new_t_num(void)
 		return (NULL);
 	new->number = 0;
 	new->index = -1;
-	new->rank = 1; ///////delete
 	new->flag = 0;
 	new->sort = 0;
 	new->next = NULL;
