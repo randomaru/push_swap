@@ -6,13 +6,13 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:53 by tamarant          #+#    #+#             */
-/*   Updated: 2020/04/09 13:42:27 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/22 21:11:00 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void 		final_free(t_num **head)
+void		free_head(t_num **head)
 {
 	t_num *tmp;
 	while (*head)
@@ -21,6 +21,28 @@ void 		final_free(t_num **head)
 		free(*head);
 		*head = tmp;
 	}
+}
+
+void		final_free(t_args **storage)
+{
+	t_num *tmp;
+	while ((*storage)->head_a)
+	{
+		tmp = (*storage)->head_a->next;
+		free((*storage)->head_a);
+		(*storage)->head_a = tmp;
+	}
+	(*storage)->tail_a = NULL;
+//	free((*storage)->tail_b);
+	(*storage)->tail_b= NULL;
+	(*storage)->stack_a_num = 0;
+	(*storage)->stack_b_num = 0;
+	(*storage)->flag = 0;
+	(*storage)->tmp_flag = 0;
+	(*storage)->next = 0;
+	(*storage)->counter = 0;
+	free(*storage);
+	*storage = NULL;
 }
 
 t_num		*new_t_num(void)
@@ -38,7 +60,7 @@ t_num		*new_t_num(void)
 	return (new);
 }
 
-t_args 		*new_t_args(void)
+t_args		*new_t_args(void)
 {
 	t_args *new;
 
@@ -61,7 +83,7 @@ t_args 		*new_t_args(void)
 	return (new);
 }
 
-void	set_prev(t_num **head)
+void		set_prev(t_num **head)
 {
 	t_num *tmp_head;
 	t_num *tmp;
@@ -76,7 +98,7 @@ void	set_prev(t_num **head)
 	}
 }
 
-int		save_numbers(char *argv, t_num **new, t_args **storage)
+int			save_numbers(char *argv, t_num **new, t_args **storage)
 {
 	if (argv == NULL || *new == NULL)
 		return (-1);
@@ -116,7 +138,7 @@ int		save_numbers(char *argv, t_num **new, t_args **storage)
 	return (0);
 }
 
-int set_index(t_num **head)
+int			set_index(t_num **head)
 {
 	int		index;
 	int		min;
@@ -163,5 +185,3 @@ int set_index(t_num **head)
 	}
 	return (1);
 }
-
-///// 2 1 2 3

@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/13 21:45:53 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/22 19:53:59 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,28 @@
 		t_num 			*tail_b;
 		int 			stack_a_num;
 		int 			stack_b_num;
-
-		int				min;
-		int 			mid;
-		int				max;
 		int				flag;
 		int 			tmp_flag;
 		int 			next;
-		char 			curr_stack;
 		int 			counter;
+		char 			curr_stack;
+		int				min;
+		int 			mid;
+		int				max;
 	}					t_args;
 
-void					final_free(t_num **head);
+void					final_free(t_args **storage);
+void		free_head(t_num **head);
+
 t_num					*new_t_num(void);
 t_args					*new_t_args(void);
 int						set_index(t_num **head);
 int						save_numbers(char *argv, t_num **new, t_args **storage);
-int						s_swap(t_num **head, int *counter);
+int s_swap(char c, t_num **head, int *counter);
 int						ss_swap(t_args **storage);
-int						r_rotate(t_num **head, t_num **tail, int *counter);
+int r_rotate(char c, t_num **head, t_num **tail, int *counter);
 void 					rr_rotate(t_args **storage);
-int						rr_reverse(t_num **head, t_num **tail, int *counter);
+int rr_reverse(char c, t_num **head, t_num **tail, int *counter);
 int						rrr_reverse(t_args **storage);
 int						push(char c, t_args **storage, int *counter);
 void					print_stacks(t_num *head_a, t_num *head_b);
@@ -69,6 +70,9 @@ int 					sort_3(t_args **storage);
 int						sort_4(t_args **storage);
 int 	find_small_part_max(int flag, t_args *storage);
 int 	find_len_of_part(int flag, t_args **storage);
+int		sort_5(t_args **storage);
+void	small_sort_a(int len, t_args **storage);
+int 	find_max_part(int max_min, int len, t_args *storage);
 
 int		small_sort_b(t_args **storage);
 

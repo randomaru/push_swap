@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/13 22:08:36 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/14 19:35:04 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 	ft_printf("%19s | %19s\n", "stack A", "stack B");
 }
 
-int		s_swap(t_num **head, int *counter)
+int		s_swap(char c, t_num **head, int *counter)
 {
 	t_num	*tmp;
 
@@ -60,7 +60,15 @@ int		s_swap(t_num **head, int *counter)
 			tmp->next->prev = tmp; ///// ошибка
 		tmp->prev = (*head);
 		(*head)->prev = NULL;
-		*counter += 1;
+		if (counter != NULL)
+		{
+			*counter += 1;
+			if (c == 'a')
+				ft_printf("sa\n");
+			else if (c == 'b')
+				ft_printf("sb\n");
+			return (1);
+		}
 		return (1);
 	}
 	return (-1);
@@ -68,15 +76,16 @@ int		s_swap(t_num **head, int *counter)
 
 int		ss_swap(t_args **storage)
 {
-	if (s_swap(&(*storage)->head_a, &(*storage)->counter) == -1)
+	if (s_swap(0, &(*storage)->head_a, &(*storage)->counter) == -1)
 		return (-1);
-	if (s_swap(&(*storage)->head_b, &(*storage)->counter) == -1)
+	if (s_swap(0, &(*storage)->head_b, &(*storage)->counter) == -1)
 		return (-1);
 	(*storage)->counter -= 1;
+	ft_printf("ss\n");
 	return (1);
 }
 
-int		r_rotate(t_num **head, t_num **tail, int *counter)
+int r_rotate(char c, t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
 
@@ -89,7 +98,15 @@ int		r_rotate(t_num **head, t_num **tail, int *counter)
 		tmp->prev = *tail;
 		tmp->next = NULL;
 		*tail = tmp;
-		*counter += 1;
+		if (counter != NULL)
+		{
+			*counter += 1;
+			if (c == 'a')
+				ft_printf("ra\n");
+			else if (c == 'b')
+				ft_printf("rb\n");
+			return (1);
+		}
 		return (1);
 	}
 	return (-1);
@@ -99,14 +116,15 @@ void 	rr_rotate(t_args **storage)
 {
 	if ((*storage)->head_a && (*storage)->head_b)
 	{
-		r_rotate(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
-		r_rotate(&(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
+		r_rotate(0, &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
+		r_rotate(0, &(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
 		(*storage)->counter -= 1;
+		ft_printf("rr\n");
 	}
 
 }
 
-int		rr_reverse(t_num **head, t_num **tail, int *counter)
+int		rr_reverse(char c, t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
 
@@ -120,15 +138,23 @@ int		rr_reverse(t_num **head, t_num **tail, int *counter)
 		tmp->next = *head;
 		*head = tmp;
 	}
-	*counter += 1;
+	if (counter != NULL)
+	{
+		*counter += 1;
+		if (c == 'a')
+			ft_printf("rra\n");
+		else if (c == 'b')
+			ft_printf("rrb\n");
+	}
 	return (1);
 }
 
 int		rrr_reverse(t_args **storage)
 {
-	rr_reverse(&(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
-	rr_reverse(&(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
+	rr_reverse(0, &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
+	rr_reverse(0, &(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
 	(*storage)->counter -= 1;
+	ft_printf("rrr\n");
 	return (1);
 }
 
@@ -194,6 +220,14 @@ int		push(char c, t_args **storage, int *counter)
 		*to = (*to)->prev;
 		*from = tmp_next;
 	}
-	*counter += 1;
+	if (counter != NULL)
+	{
+		*counter += 1;
+		if (c == 'a')
+			ft_printf("pa\n");
+		else if (c == 'b')
+			ft_printf("pb\n");
+		return (1);
+	}
 	return (1);
 }
