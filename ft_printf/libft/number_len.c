@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 21:45:18 by tamarant          #+#    #+#             */
-/*   Updated: 2020/04/07 21:32:00 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/26 23:37:53 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ int		number_len(int n)
 	int len;
 
 	len = 1;
-	if (n < 0)
-	{
-		len += 1;
+	if (n == INT_MIN)
+		len = 10;
+	else if (n < 0)
 		n = -n;
-	}
 	while (n > 9)
 	{
 		n = n / 10;

@@ -1,4 +1,4 @@
-valgrind ./push_swap 2>&1 | grep lost
+    valgrind ./push_swap 2>&1 | grep lost
     valgrind ./push_swap "1 2" 2>&1 | grep lost
     valgrind ./push_swap "2 2" 2>&1 | grep lost
     valgrind ./push_swap "a 2" 2>&1 | grep lost

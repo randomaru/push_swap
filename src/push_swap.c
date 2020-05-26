@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:28:17 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/22 21:43:21 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/26 18:53:03 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		main(int argc, char **argv)
 {
 	t_args	*storage;
 	t_num	*new;
-	t_num	*tmp;
 	int		i;
 
 	new = NULL;
@@ -27,9 +26,10 @@ int		main(int argc, char **argv)
 		return (-1);
 	if (!(new = new_t_num()))
 		return (-1);
-	if (argc < 2)
+	if (argc < 2 || *argv[1] == '\0')
 	{
-		ft_printf("ERROR: number of arguments should be more than zero");
+		ft_printf("Usage: ./push_swap [arg_1] [arg_2]...arg[n]\n");
+		final_free(&storage, &new);
 		return (0);
 	}
 	if (argc > 1)
@@ -38,15 +38,8 @@ int		main(int argc, char **argv)
 		{
 			if (save_numbers(argv[i], &new, &storage) == -1)
 			{
-				ft_printf("ERROR");
-				final_free(&storage);////отфришить нью нормально
-				while (new)
-				{
-					tmp = new->next;
-					if (new)
-						free(new);
-					new = tmp;
-				}
+				write(2, "Error\n", 6);
+				final_free(&storage, &new);
 				return (0);
 			}
 			i++;
@@ -55,13 +48,13 @@ int		main(int argc, char **argv)
 	}
 	if (set_index(&storage->head_a) == -1)
 	{
-		ft_printf("There is duplicates.");
-		final_free(&storage);
+		write(2, "Error\n", 6);
+		final_free(&storage, &new);
 		return (0);
 	}
 	if (!is_all_sorted(storage))
 		sort_main(&storage);
-//	ft_printf("sum of op: %i\n", storage->counter);
-	final_free(&storage);
+	final_free(&storage, &new);
+	exit(0);
 	return (0);
 }

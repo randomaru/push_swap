@@ -6,7 +6,7 @@
 #    By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/09 18:10:20 by tamarant          #+#    #+#              #
-#    Updated: 2020/04/07 21:31:59 by mac              ###   ########.fr        #
+#    Updated: 2020/05/23 18:24:50 by mac              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,10 @@ SRC = ft_putchar.c ft_putstr.c ft_strcmp.c ft_strcpy.c ft_strdup.c \
 	  number_len_ll.c number_len.c number_len_ull.c \
 	  ft_llutoa.c ft_lltoa.c ulltoa_base.c itoa_base.c ft_putnbr_max.c \
 	  to_uppercase.c  ft_ulltoa.c ft_is_minus_inf.c ft_isinf.c ft_isnan.c \
-	  ft_pow.c ft_pow_double.c
-
+	  ft_pow.c ft_pow_double.c int_max_atoi.c \
 
 OBJ = $(SRC:.c=.o)
+
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -50,4 +50,4 @@ clean:
 fclean: clean
 				rm -rf $(NAME)
 
-re: fclean all
+re: fclean $(NAME)

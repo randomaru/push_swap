@@ -23,7 +23,7 @@ int		stack_b_division(int mid, int max, t_args **storage)
 			{
 				push('a', storage, &(*storage)->counter);
 				if ((*storage)->head_b && (*storage)->head_b->index < mid)
-					rr_rotate(storage);
+					rr_rotate(storage, 0);
 				else
 					r_rotate('a', &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 				(*storage)->tail_a->sort = 1;
@@ -135,7 +135,7 @@ void	sort_second_part(t_args **storage)
 		tmp = (*storage)->head_a;
 	}
 	while ((*storage)->tail_a->sort != 1 && (*storage)->head_b->index != (*storage)->next)
-		rrr_reverse(storage);
+		rrr_reverse(storage, 0);
 	while ((*storage)->tail_a->sort != 1)
 		rr_reverse('a', &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 }

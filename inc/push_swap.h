@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 13:29:30 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/22 19:53:59 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/27 01:14:51 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,22 @@
 		int 			tmp_flag;
 		int 			next;
 		int 			counter;
-		char 			curr_stack;
-		int				min;
-		int 			mid;
-		int				max;
 	}					t_args;
 
-void					final_free(t_args **storage);
+void final_free(t_args **storage, t_num **new);
 void		free_head(t_num **head);
 
 t_num					*new_t_num(void);
 t_args					*new_t_args(void);
 int						set_index(t_num **head);
 int						save_numbers(char *argv, t_num **new, t_args **storage);
-int s_swap(char c, t_num **head, int *counter);
-int						ss_swap(t_args **storage);
-int r_rotate(char c, t_num **head, t_num **tail, int *counter);
-void 					rr_rotate(t_args **storage);
-int rr_reverse(char c, t_num **head, t_num **tail, int *counter);
-int						rrr_reverse(t_args **storage);
-int						push(char c, t_args **storage, int *counter);
+void s_swap(char c, t_num **head, int *counter);
+void ss_swap(t_args **storage);
+void r_rotate(char c, t_num **head, t_num **tail, int *counter);
+void rr_rotate(t_args **storage, int checker);
+void rr_reverse(char c, t_num **head, t_num **tail, int *counter);
+void rrr_reverse(t_args **storage, int checker);
+void push(char c, t_args **storage, int *counter);
 void					print_stacks(t_num *head_a, t_num *head_b);
 int						sort_main(t_args **storage);
 

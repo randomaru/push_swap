@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 21:44:24 by tamarant          #+#    #+#             */
-/*   Updated: 2020/04/07 21:31:59 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/26 23:17:09 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ int					ft_isnan(long double num);
 int					ft_is_minus_inf(long double num);
 ULL					ft_pow(ULL n, ULL pow);
 LD					ft_pow_double(LD n, ULL pow);
+int					int_max_atoi(int *n, const char *str);
 
 #endif

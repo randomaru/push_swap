@@ -112,8 +112,7 @@ int 	find_small_part_max(int flag, t_args *storage)
 int		sort_2(t_args **storage)
 {
 	if ((*storage)->head_a->index > (*storage)->head_a->next->index)
-		if (s_swap('a', &(*storage)->head_a, &(*storage)->counter) == -1)
-			return (0);
+		s_swap('a', &(*storage)->head_a, &(*storage)->counter);
 	if ((*storage)->stack_a_num > 2)
 	{
 		r_rotate('a', &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);

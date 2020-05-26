@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/14 19:35:04 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/27 01:14:51 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	print_stacks(t_num *head_a, t_num *head_b)
 	ft_printf("%19s | %19s\n", "stack A", "stack B");
 }
 
-int		s_swap(char c, t_num **head, int *counter)
+void	s_swap(char c, t_num **head, int *counter)
 {
 	t_num	*tmp;
 
@@ -67,25 +67,22 @@ int		s_swap(char c, t_num **head, int *counter)
 				ft_printf("sa\n");
 			else if (c == 'b')
 				ft_printf("sb\n");
-			return (1);
 		}
-		return (1);
 	}
-	return (-1);
 }
 
-int		ss_swap(t_args **storage)
+void	ss_swap(t_args **storage)
 {
-	if (s_swap(0, &(*storage)->head_a, &(*storage)->counter) == -1)
-		return (-1);
-	if (s_swap(0, &(*storage)->head_b, &(*storage)->counter) == -1)
-		return (-1);
-	(*storage)->counter -= 1;
-	ft_printf("ss\n");
-	return (1);
+	if ((*storage)->head_a && (*storage)->head_b)
+	{
+		s_swap(0, &(*storage)->head_a, &(*storage)->counter);
+		s_swap(0, &(*storage)->head_b, &(*storage)->counter);
+		(*storage)->counter -= 1;
+		ft_printf("ss\n");
+	}
 }
 
-int r_rotate(char c, t_num **head, t_num **tail, int *counter)
+void	r_rotate(char c, t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
 
@@ -105,26 +102,26 @@ int r_rotate(char c, t_num **head, t_num **tail, int *counter)
 				ft_printf("ra\n");
 			else if (c == 'b')
 				ft_printf("rb\n");
-			return (1);
 		}
-		return (1);
 	}
-	return (-1);
 }
 
-void 	rr_rotate(t_args **storage)
+void	rr_rotate(t_args **storage, int checker)
 {
 	if ((*storage)->head_a && (*storage)->head_b)
 	{
 		r_rotate(0, &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
 		r_rotate(0, &(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
-		(*storage)->counter -= 1;
-		ft_printf("rr\n");
+		if (checker == 0)
+		{
+			(*storage)->counter -= 1;
+			ft_printf("rr\n");
+		}
 	}
 
 }
 
-int		rr_reverse(char c, t_num **head, t_num **tail, int *counter)
+void	rr_reverse(char c, t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
 
@@ -137,28 +134,32 @@ int		rr_reverse(char c, t_num **head, t_num **tail, int *counter)
 		tmp->prev = NULL;
 		tmp->next = *head;
 		*head = tmp;
+		if (counter != NULL)
+		{
+			*counter += 1;
+			if (c == 'a')
+				ft_printf("rra\n");
+			else if (c == 'b')
+				ft_printf("rrb\n");
+		}
 	}
-	if (counter != NULL)
-	{
-		*counter += 1;
-		if (c == 'a')
-			ft_printf("rra\n");
-		else if (c == 'b')
-			ft_printf("rrb\n");
-	}
-	return (1);
 }
 
-int		rrr_reverse(t_args **storage)
+void	rrr_reverse(t_args **storage, int checker)
 {
-	rr_reverse(0, &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
-	rr_reverse(0, &(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
-	(*storage)->counter -= 1;
-	ft_printf("rrr\n");
-	return (1);
+	if ((*storage)->head_a && (*storage)->head_b)
+	{
+		rr_reverse(0, &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
+		rr_reverse(0, &(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
+		if (checker == 0)
+		{
+			(*storage)->counter -= 1;
+			ft_printf("rrr\n");
+		}
+	}
 }
 
-int		push(char c, t_args **storage, int *counter)
+void	push(char c, t_args **storage, int *counter)
 {
 	t_num **from;
 	t_num **to;
@@ -171,8 +172,6 @@ int		push(char c, t_args **storage, int *counter)
 		to = &(*storage)->head_a;
 		(*storage)->stack_b_num -= 1;
 		(*storage)->stack_a_num += 1;
-/*		if ((*storage)->stack_b_num == 0)
-			(*storage)->tail_b = NULL; ////*/
 	}
 	else if (c == 'b' && (*storage)->head_a)
 	{
@@ -192,9 +191,9 @@ int		push(char c, t_args **storage, int *counter)
 		(*storage)->stack_b_num += 1;
 	}
 	else
-		return (-1);
+		return ;
 	if (*from == NULL)
-		return (-1);
+		return ;
 	tmp_next = NULL;
 	curr = *from; /// head_b
 	if (curr->next)
@@ -207,8 +206,7 @@ int		push(char c, t_args **storage, int *counter)
 		(*to)->prev = NULL;
 		(*to)->next = NULL;
 		*from = tmp_next;
-		/*if (c == 'a')
-			*/(*storage)->tail_b = *to;
+		(*storage)->tail_b = *to;
 	}
 	else
 	{
@@ -227,7 +225,5 @@ int		push(char c, t_args **storage, int *counter)
 			ft_printf("pa\n");
 		else if (c == 'b')
 			ft_printf("pb\n");
-		return (1);
 	}
-	return (1);
 }

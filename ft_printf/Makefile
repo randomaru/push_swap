@@ -6,7 +6,7 @@
 #    By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/17 18:16:44 by tamarant          #+#    #+#              #
-#    Updated: 2020/04/07 21:31:59 by mac              ###   ########.fr        #
+#    Updated: 2020/05/26 23:04:21 by mac              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,12 +56,13 @@ $(NAME): $(OBJ) check_lib
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(OBJ)
+	rm -rf $(OBJ)
 	rm -rf ./obj
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	rm -rf $(NAME)
 	rm -rf ./obj
 
 re: fclean $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
