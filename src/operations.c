@@ -6,13 +6,13 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/27 15:50:45 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/27 19:04:06 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	s_swap(char c, t_num **head, int *counter)
+void		s_swap(char c, t_num **head, int *counter)
 {
 	t_num	*tmp;
 
@@ -37,7 +37,7 @@ void	s_swap(char c, t_num **head, int *counter)
 	}
 }
 
-void	r_rotate(char c, t_num **head, t_num **tail, int *counter)
+void		r_rotate(char c, t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
 
@@ -61,7 +61,7 @@ void	r_rotate(char c, t_num **head, t_num **tail, int *counter)
 	}
 }
 
-void	rr_reverse(char c, t_num **head, t_num **tail, int *counter)
+void		rr_reverse(char c, t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
 
@@ -85,15 +85,10 @@ void	rr_reverse(char c, t_num **head, t_num **tail, int *counter)
 	}
 }
 
-void	push(char c, t_args **storage, int *counter)
+static void	set_stack(char c, t_args **storage, t_num *const *to)
 {
-	t_num **from;
-	t_num **to;
-	t_num *curr;
 	t_num *tmp_next;
 
-	from = ((c == 'a') ? (&(*storage)->head_b) : &(*storage)->head_a);
-	to = ((c == 'a') ? (&(*storage)->head_a) : &(*storage)->head_b);
 	if (c == 'a')
 	{
 		(*storage)->stack_b_num -= 1;
@@ -111,58 +106,25 @@ void	push(char c, t_args **storage, int *counter)
 		(*storage)->stack_a_num -= 1;
 		(*storage)->stack_b_num += 1;
 	}
-/*	if (c == 'a' && (*storage)->head_b)
-	{
-		from = &(*storage)->head_b;
-		to = &(*storage)->head_a;
-		(*storage)->stack_b_num -= 1;
-		(*storage)->stack_a_num += 1;
-	}
-	else if (c == 'b' && (*storage)->head_a)
-	{
-		from = &(*storage)->head_a;
-		to = &(*storage)->head_b;
-		if ((*storage)->tail_b == NULL)
-		{
-			if (to)
-			{
-				tmp_next = *to;
-				while (tmp_next)
-					tmp_next = tmp_next->next;
-				(*storage)->tail_b = tmp_next;
-			}
-		}
-		(*storage)->stack_a_num -= 1;
-		(*storage)->stack_b_num += 1;
-	}*/
-/*	else
-		return ;*/
+}
+
+void		push(char c, t_args **storage, int *counter)
+{
+	t_num **from;
+	t_num **to;
+	t_num *curr;
+	t_num *tmp_next;
+
+	from = ((c == 'a') ? (&(*storage)->head_b) : &(*storage)->head_a);
+	to = ((c == 'a') ? (&(*storage)->head_a) : &(*storage)->head_b);
+	set_stack(c, storage, to);
 	if (*from == NULL)
 		return ;
 	tmp_next = NULL;
 	curr = *from;
 	if (curr->next)
 		tmp_next = (*from)->next;
-	if (*to == NULL)
-	{
-		*to = *from;
-		if (tmp_next)
-			tmp_next->prev = NULL;
-		(*to)->prev = NULL;
-		(*to)->next = NULL;
-		*from = tmp_next;
-		(*storage)->tail_b = *to;
-	}
-	else
-	{
-		if (tmp_next)
-			tmp_next->prev = NULL;
-		curr->prev = NULL;
-		curr->next = *to;
-		(*to)->prev = curr;
-		*to = (*to)->prev;
-		*from = tmp_next;
-	}
+	push_help(&(*to), &(*from), tmp_next, storage);
 	if (counter != NULL)
 	{
 		*counter += 1;

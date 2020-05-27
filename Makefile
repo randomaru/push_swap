@@ -6,7 +6,7 @@
 #    By: fboggs <fboggs@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/15 17:31:35 by fboggs            #+#    #+#              #
-#    Updated: 2020/05/26 23:05:58 by mac              ###   ########.fr        #
+#    Updated: 2020/05/27 19:29:13 by mac              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,13 @@ INC_PRINTF = ./ft_printf/inc/
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 
-PS_SRC_NAME = push_swap.c not_mine_get_next_line.c operations.c\
-save_data.c sort_main.c sort_main_help.c
+PS_SRC_NAME = push_swap.c  main_help.c new_and_free.c operations.c\
+operations_help.c print_stacks.c save_data.c\
+save_data_help.c sort_main.c sort_main_help.c small_sort.c sort_3_4_5.c ps_help.c
 
-CHECKER_SRC_NAME = checker.c not_mine_get_next_line.c operations.c\
-                   save_data.c
+CHECKER_SRC_NAME = checker.c main_help.c new_and_free.c operations.c\
+operations_help.c print_stacks.c save_data.c\
+save_data_help.c sort_main.c sort_main_help.c small_sort.c sort_3_4_5.c ps_help.c
 
 HEADER = $(addprefix $(INC_DIR), $(HEADER_NAME))
 
