@@ -6,45 +6,11 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/27 01:14:51 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/27 15:50:45 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
-
-void	print_stacks(t_num *head_a, t_num *head_b)
-{
-	t_num *tmp_a;
-	t_num *tmp_b;
-
-	tmp_a = head_a;
-	tmp_b = head_b;
-	ft_printf("\n");
-	while (tmp_a || tmp_b)
-	{
-		if (tmp_a && !tmp_b)
-		{
-			ft_printf("%6i f%2i in%2i s:%i | %8c\n", tmp_a->number, tmp_a->flag, tmp_a->index, tmp_a->sort, ' ');
-			tmp_a = tmp_a->next;
-		}
-		else if (tmp_b && !tmp_a)
-		{
-			ft_printf("%19c | %6i f%2i in%2i s:%i\n", ' ', tmp_b->number, tmp_b->flag, tmp_b->index, tmp_b->sort);
-
-			tmp_b = tmp_b->next;
-		}
-		else if (tmp_a && tmp_b)
-		{
-			ft_printf("%6i f%2i in%2i s:%i | %6i f%2i in%2i s:%i\n",
-					tmp_a->number, tmp_a->flag, tmp_a->index, tmp_a->sort,
-					tmp_b->number, tmp_b->flag, tmp_b->index, tmp_b->sort);
-			tmp_a = tmp_a->next;
-			tmp_b = tmp_b->next;
-		}
-
-	}
-	ft_printf("%19s | %19s\n", "stack A", "stack B");
-}
 
 void	s_swap(char c, t_num **head, int *counter)
 {
@@ -57,7 +23,7 @@ void	s_swap(char c, t_num **head, int *counter)
 		tmp->next = (*head)->next;
 		(*head)->next = tmp;
 		if (tmp->next)
-			tmp->next->prev = tmp; ///// ошибка
+			tmp->next->prev = tmp;
 		tmp->prev = (*head);
 		(*head)->prev = NULL;
 		if (counter != NULL)
@@ -68,17 +34,6 @@ void	s_swap(char c, t_num **head, int *counter)
 			else if (c == 'b')
 				ft_printf("sb\n");
 		}
-	}
-}
-
-void	ss_swap(t_args **storage)
-{
-	if ((*storage)->head_a && (*storage)->head_b)
-	{
-		s_swap(0, &(*storage)->head_a, &(*storage)->counter);
-		s_swap(0, &(*storage)->head_b, &(*storage)->counter);
-		(*storage)->counter -= 1;
-		ft_printf("ss\n");
 	}
 }
 
@@ -106,21 +61,6 @@ void	r_rotate(char c, t_num **head, t_num **tail, int *counter)
 	}
 }
 
-void	rr_rotate(t_args **storage, int checker)
-{
-	if ((*storage)->head_a && (*storage)->head_b)
-	{
-		r_rotate(0, &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
-		r_rotate(0, &(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
-		if (checker == 0)
-		{
-			(*storage)->counter -= 1;
-			ft_printf("rr\n");
-		}
-	}
-
-}
-
 void	rr_reverse(char c, t_num **head, t_num **tail, int *counter)
 {
 	t_num *tmp;
@@ -145,20 +85,6 @@ void	rr_reverse(char c, t_num **head, t_num **tail, int *counter)
 	}
 }
 
-void	rrr_reverse(t_args **storage, int checker)
-{
-	if ((*storage)->head_a && (*storage)->head_b)
-	{
-		rr_reverse(0, &(*storage)->head_a, &(*storage)->tail_a, &(*storage)->counter);
-		rr_reverse(0, &(*storage)->head_b, &(*storage)->tail_b, &(*storage)->counter);
-		if (checker == 0)
-		{
-			(*storage)->counter -= 1;
-			ft_printf("rrr\n");
-		}
-	}
-}
-
 void	push(char c, t_args **storage, int *counter)
 {
 	t_num **from;
@@ -166,7 +92,26 @@ void	push(char c, t_args **storage, int *counter)
 	t_num *curr;
 	t_num *tmp_next;
 
-	if (c == 'a' && (*storage)->head_b)
+	from = ((c == 'a') ? (&(*storage)->head_b) : &(*storage)->head_a);
+	to = ((c == 'a') ? (&(*storage)->head_a) : &(*storage)->head_b);
+	if (c == 'a')
+	{
+		(*storage)->stack_b_num -= 1;
+		(*storage)->stack_a_num += 1;
+	}
+	else
+	{
+		if ((*storage)->tail_b == NULL && to)
+		{
+			tmp_next = *to;
+			while (tmp_next)
+				tmp_next = tmp_next->next;
+			(*storage)->tail_b = tmp_next;
+		}
+		(*storage)->stack_a_num -= 1;
+		(*storage)->stack_b_num += 1;
+	}
+/*	if (c == 'a' && (*storage)->head_b)
 	{
 		from = &(*storage)->head_b;
 		to = &(*storage)->head_a;
@@ -189,15 +134,15 @@ void	push(char c, t_args **storage, int *counter)
 		}
 		(*storage)->stack_a_num -= 1;
 		(*storage)->stack_b_num += 1;
-	}
-	else
-		return ;
+	}*/
+/*	else
+		return ;*/
 	if (*from == NULL)
 		return ;
 	tmp_next = NULL;
-	curr = *from; /// head_b
+	curr = *from;
 	if (curr->next)
-		tmp_next = (*from)->next; ///head_b->next
+		tmp_next = (*from)->next;
 	if (*to == NULL)
 	{
 		*to = *from;

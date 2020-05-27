@@ -24,6 +24,8 @@ int		is_all_sorted(t_args *storage)
 	t_num *head_a;
 
 	head_a = storage->head_a;
+	if (storage->head_b != NULL || storage->head_a == NULL)
+		return (0);
 	if (storage->head_b == NULL)
 	{
 		while (head_a)
