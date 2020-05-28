@@ -26,7 +26,7 @@ int				int_max_atoi(int *n, const char *str)
 {
 	int			i;
 	int			neg;
-	long long   res;
+	long long	res;
 
 	i = 0;
 	res = 0;
@@ -50,4 +50,3 @@ int				int_max_atoi(int *n, const char *str)
 	*n = (int)res;
 	return (1);
 }
-
