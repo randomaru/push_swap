@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:44 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/27 19:04:06 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/30 19:11:14 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ static void	set_stack(char c, t_args **storage, t_num *const *to)
 	{
 		(*storage)->stack_b_num -= 1;
 		(*storage)->stack_a_num += 1;
+		if ((*storage)->stack_b_num == 0)
+			(*storage)->tail_b = NULL;
 	}
 	else
 	{
@@ -117,8 +119,9 @@ void		push(char c, t_args **storage, int *counter)
 
 	from = ((c == 'a') ? (&(*storage)->head_b) : &(*storage)->head_a);
 	to = ((c == 'a') ? (&(*storage)->head_a) : &(*storage)->head_b);
-	set_stack(c, storage, to);
-	if (*from == NULL)
+	if (*from)
+		set_stack(c, storage, to);
+	else
 		return ;
 	tmp_next = NULL;
 	curr = *from;
@@ -128,9 +131,10 @@ void		push(char c, t_args **storage, int *counter)
 	if (counter != NULL)
 	{
 		*counter += 1;
-		if (c == 'a')
-			ft_printf("pa\n");
-		else if (c == 'b')
-			ft_printf("pb\n");
+		ft_printf((c == 'a') ? ("pa\n") : ("pb\n"));
 	}
+	if ((*storage)->stack_b_num == 1)
+		(*storage)->tail_b = (*storage)->head_b;
+	if ((*storage)->stack_a_num == 1)
+		(*storage)->tail_a = (*storage)->head_a;
 }

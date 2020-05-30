@@ -100,13 +100,12 @@ HEADER = libft.h
 
 OBJ = $(SRC:.c=.o)
 
-
 FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME):  $(OBJ)
-				gcc $(FLAGS) -I $(HEADER) -c $(SRC)
+$(NAME): $(HEADER) $(OBJ)
+				@gcc $(FLAGS) -I $(HEADER) -c $(SRC)
 				ar rc $(NAME) $(OBJ)
 				ranlib $(NAME)
 

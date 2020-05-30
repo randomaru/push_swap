@@ -6,7 +6,7 @@
 /*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 15:23:08 by mac               #+#    #+#             */
-/*   Updated: 2020/05/27 19:05:23 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/30 19:57:43 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,39 @@
 
 void	rrr_reverse(t_args **storage, int checker)
 {
-	if ((*storage)->head_a && (*storage)->head_b)
+	if ((*storage)->head_a && (*storage)->stack_a_num > 1)
 	{
 		rr_reverse(0, &(*storage)->head_a,
 				&(*storage)->tail_a, &(*storage)->counter);
+	}
+	if ((*storage)->head_b && (*storage)->stack_b_num > 1)
+	{
 		rr_reverse(0, &(*storage)->head_b,
 				&(*storage)->tail_b, &(*storage)->counter);
-		if (checker == 0)
-		{
-			(*storage)->counter -= 1;
-			ft_printf("rrr\n");
-		}
+	}
+	if (checker == 0)
+	{
+		(*storage)->counter -= 1;
+		ft_printf("rrr\n");
 	}
 }
 
 void	rr_rotate(t_args **storage, int checker)
 {
-	if ((*storage)->head_a && (*storage)->head_b)
+	if ((*storage)->head_a && (*storage)->stack_a_num > 1)
 	{
 		r_rotate(0, &(*storage)->head_a,
 				&(*storage)->tail_a, &(*storage)->counter);
+	}
+	if ((*storage)->head_b && (*storage)->stack_b_num > 1)
+	{
 		r_rotate(0, &(*storage)->head_b,
 				&(*storage)->tail_b, &(*storage)->counter);
-		if (checker == 0)
-		{
-			(*storage)->counter -= 1;
-			ft_printf("rr\n");
-		}
+	}
+	if (checker == 0)
+	{
+		(*storage)->counter -= 1;
+		ft_printf("rr\n");
 	}
 }
 
@@ -60,6 +66,8 @@ void	push_help(t_num **to, t_num **from, t_num *tmp_next, t_args **storage)
 	t_num *curr;
 
 	curr = *from;
+	if (!(*storage))
+		return ;
 	if (*to == NULL)
 	{
 		*to = *from;
@@ -68,7 +76,6 @@ void	push_help(t_num **to, t_num **from, t_num *tmp_next, t_args **storage)
 		(*to)->prev = NULL;
 		(*to)->next = NULL;
 		*from = tmp_next;
-		(*storage)->tail_b = *to;
 	}
 	else
 	{

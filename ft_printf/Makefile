@@ -50,9 +50,10 @@ obj/%.o: src/%.c
 	@mkdir -p obj/
 	@gcc $(FLAGS) -I $(INC) -o $@ -c $<
 
-$(NAME): $(OBJ) check_lib
-	cp $(LIB) $(NAME)
-	ar rc $(NAME) $(OBJ)
+$(NAME): $(OBJ) check_lib $(INC)
+	@cp $(LIB) $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
@@ -65,4 +66,3 @@ fclean: clean
 	rm -rf ./obj
 
 re: fclean $(NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean

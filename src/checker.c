@@ -6,7 +6,7 @@
 /*   By: tamarant <tamarant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 21:14:33 by tamarant          #+#    #+#             */
-/*   Updated: 2020/05/27 15:16:38 by mac              ###   ########.fr       */
+/*   Updated: 2020/05/30 18:05:29 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int			valid_and_parse_args(t_args *storage)
 {
 	char *line;
 
+	if (storage->flag_v == 1)
+		output_stacks(&storage);
 	while (get_next_line(0, &line) > 0)
 	{
 		if (*line == '\0')
